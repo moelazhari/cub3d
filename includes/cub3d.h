@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/06 19:52:51 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/08 15:35:40 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 # define CUB3D_H
 
 #include <../libft/libft.h>
+#include <get_next_line.h>
+#include <mlx.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdio.h>
+
+#define	WSPACE " \t\v\f\r"
 
 typedef struct s_player
 {
@@ -25,13 +30,31 @@ typedef struct s_player
 	char	view;
 }				t_player;
 
+typedef struct s_map 
+{
+	int	row;
+	int	col;
+	char **map;
+}
+				t_map;
+
 typedef struct s_data
 {
-	char        **map;
-	t_player    *player;
+	void		*mlx;
+	t_map		map;
+	t_player    player;
+	void		*no;
+	void		*so;
+	void		*wo;
+	void		*ea;
+	int			f;
+	int			c;
 }				t_data;
 
 void    get_map(char *file, t_data *data);
-void    exit_error(int error, t_data *data);
+int		check_file(char *file, char *type, t_data *data);
+char	*rm_char(char *str);
+void	get_texture(char *line, t_data *data);
+void	ft_exit(char *error_msg, t_data *data);
 
 #endif
