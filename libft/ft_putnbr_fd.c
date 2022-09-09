@@ -3,33 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: yel-khad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 12:14:24 by mazhari           #+#    #+#             */
-/*   Updated: 2021/11/12 12:22:53 by mazhari          ###   ########.fr       */
+/*   Created: 2021/11/19 16:03:45 by yel-khad          #+#    #+#             */
+/*   Updated: 2021/11/19 18:28:07 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	i;
+	long	x;
+	long	nbr;
 
-	i = 0;
+	x = 10;
+	nbr = (1 - 2 * (n < 0)) * n;
+	if (n == -2147483648)
+	{
+		ft_putstr_fd("-2147483648", fd);
+		return ;
+	}
 	if (n < 0)
-	{
 		ft_putchar_fd('-', fd);
-		n = -n;
-	}
-	i = n;
-	if (i <= 9)
+	while (x <= nbr)
+		x = x * 10;
+	while (x != 1)
 	{
-		ft_putchar_fd(i + '0', fd);
-	}
-	else
-	{
-		ft_putnbr_fd(i / 10, fd);
-		ft_putnbr_fd(i % 10, fd);
+		x = x / 10;
+		ft_putchar_fd((nbr / x) % 10 + 48, fd);
 	}
 }

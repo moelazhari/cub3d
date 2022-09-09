@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/07 16:36:06 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/09 19:30:54 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int main(int ac, char **av)
     if (ac != 2)
         ft_exit("Error arg", &data);
     start_game(&data);
-    get_map(av[1], &data);
+    pars_file(av[1], &data);
 }

@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/08 15:35:40 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/09 19:29:56 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ typedef struct s_data
 	int			c;
 }				t_data;
 
-void    get_map(char *file, t_data *data);
+void    pars_file(char *file, t_data *data);
 int		check_file(char *file, char *type, t_data *data);
-char	*rm_char(char *str);
 void	get_texture(char *line, t_data *data);
+void    get_color(char *line, t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
 
 #endif

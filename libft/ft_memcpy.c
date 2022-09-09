@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   memcpy.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 15:49:16 by mazhari           #+#    #+#             */
-/*   Updated: 2021/11/07 13:22:08 by mazhari          ###   ########.fr       */
+/*   Created: 2021/11/10 16:30:56 by yel-khad          #+#    #+#             */
+/*   Updated: 2021/11/13 16:55:50 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
+#include"libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned char	*c_dst;
-	unsigned char	*c_src;
+	char	*str1;
+	char	*str2;
 
-	c_dst = (unsigned char *)dst;
-	c_src = (unsigned char *)src;
-	if (!c_dst && !c_src)
-		return (NULL);
+	if (dst == src || n == 0)
+		return (dst);
+	if (!dst && !src)
+		return (0);
+	str1 = (char *)dst;
+	str2 = (char *)src;
 	while (n--)
-		*c_dst++ = *c_src++;
+		str1[n] = str2[n];
 	return (dst);
 }

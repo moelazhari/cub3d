@@ -3,69 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: yel-khad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 00:08:54 by mazhari           #+#    #+#             */
-/*   Updated: 2021/11/11 13:39:55 by mazhari          ###   ########.fr       */
+/*   Created: 2021/11/15 12:57:42 by yel-khad          #+#    #+#             */
+/*   Updated: 2021/11/15 15:46:36 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include"libft.h"
 
-#include "libft.h"
-
-static int	len_c(long c)
+static unsigned int	nbrlen(unsigned int n)
 {
-	int	rus;
+	unsigned int	i;
+	long			x;
 
-	rus = 0;
-	if (c <= 9)
-		return (1);
-	else if (c < 0)
-		c = -c;
-	while (c)
+	i = 1;
+	x = 10;
+	while (n % x != n)
 	{
-		rus++;
-		c /= 10;
+		x = x * 10;
+		i++;
 	}
-	return (rus);
+	return (i);
 }
 
-static char	*fill_str(char *str, int len_str, long n, int sing)
+char	*ft_itoa(int n)
 {
-	str[--len_str] = '\0';
-	if (n == 0)
-	{
-		str[0] = '0';
-		return (str);
-	}
-	while (n)
-	{
-		str[--len_str] = (n % 10) + '0';
-		n /= 10;
-	}
-	if (sing == -1)
-		str[--len_str] = '-';
-	return (str);
-}
+	long			x;
+	unsigned int	i;
+	unsigned int	k;
+	long			nbr;
+	char			*str;
 
-char	*ft_itoa(int c)
-{
-	long	n;
-	char	*str;
-	int		len_str;
-	int		sing;
-
-	n = c;
-	len_str = 0;
-	if (n < 0)
-	{
-		sing = -1;
-		n = -n;
-		len_str++;
-	}	
-	len_str += len_c(n) + 1;
-	str = (char *)malloc(len_str * sizeof(char));
+	x = 1;
+	i = 0;
+	k = (n < 0);
+	nbr = (1 - (2 * k)) * n;
+	str = malloc(sizeof(char) * (nbrlen(nbr) + 1 + k));
 	if (!str)
 		return (NULL);
-	str = fill_str(str, len_str, n, sing);
+	if (k)
+		str[0] = '-';
+	while ((x * 10) <= nbr)
+		x = x * 10;
+	while (i < nbrlen(nbr))
+	{
+		str[i + k] = ((nbr / x) % 10) + 48;
+		x = x / 10;
+		i++;
+	}
+	str[i + k] = '\0';
 	return (str);
 }

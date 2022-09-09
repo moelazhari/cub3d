@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 12:23:30 by mazhari           #+#    #+#             */
-/*   Updated: 2021/11/07 13:04:15 by mazhari          ###   ########.fr       */
+/*   Created: 2021/11/12 20:14:15 by yel-khad          #+#    #+#             */
+/*   Updated: 2021/11/27 13:48:32 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include"libft.h"
 
-#include "libft.h"
+static int	space(char c)
+{
+	if (c == ' ' || c == '\n' || c == '\f' || c == '\r'
+		|| c == '\t' || c == '\v')
+		return (1);
+	return (0);
+}
 
 int	ft_atoi(const char *str)
 {
-	int	rus;
-	int	vul;
 	int	i;
+	int	s;
+	int	res;
 
 	i = 0;
-	vul = 1;
-	rus = 0;
-	while ((str[i] == ' ' || str[i] == '\f')
-		|| (str[i] == '\n' || str[i] == '\r')
-		|| (str[i] == '\t' || str[i] == '\v'))
+	res = 0;
+	while (space(str[i]))
 		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			vul *= -1;
+	s = 1 - (2 * (str[i] == '-'));
+	if (str[i] == '-' || str[i] == '+')
 		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
-	{
-		rus = (rus * 10) + ((int)str[i] - '0');
-		i++;
-	}	
-	return (vul * rus);
+		res = (res * 10) + str[i++] - '0';
+	return (s * res);
 }
