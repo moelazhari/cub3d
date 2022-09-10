@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/09 19:29:56 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/10 15:46:47 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_player
 	int		row;
 	int		col;
 	char	view;
+	int		count;
 }				t_player;
 
 typedef struct s_map 
@@ -55,6 +56,8 @@ void    pars_file(char *file, t_data *data);
 int		check_file(char *file, char *type, t_data *data);
 void	get_texture(char *line, t_data *data);
 void    get_color(char *line, t_data *data);
+void    get_map(int fd, t_data  *data);
+void	check_map(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
 
 #endif

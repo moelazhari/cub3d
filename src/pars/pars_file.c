@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/09 19:29:40 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/10 14:47:24 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void    pars_file(char *file, t_data *data)
 
     fd = check_file(file, ".cub", data);
 	get_texture_color(fd, data);
+	get_map(fd, data);
 }

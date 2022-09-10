@@ -6,12 +6,12 @@
 #    By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 16:18:39 by mazhari           #+#    #+#              #
-#    Updated: 2022/09/09 19:30:33 by mazhari          ###   ########.fr        #
+#    Updated: 2022/09/10 15:47:21 by mazhari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC= gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME= cub3d
 
@@ -26,7 +26,7 @@ B_DIR = ./build
 
 
 GNL= $(addprefix gnl/, get_next_line get_next_line_utils)
-PARS= $(addprefix pars/, pars_file map_utils get_texture get_color)
+PARS= $(addprefix pars/, pars_file map_utils get_texture get_color get_map check_map)
 SRC= $(addprefix src/, main exit_error $(PARS))
 FILES= $(SRC) $(GNL)
 OBJS= $(addprefix $(B_DIR)/, $(FILES:=.o))

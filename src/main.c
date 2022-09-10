@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/09 19:30:54 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/10 18:22:23 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void start_game(t_data *data)
     data->mlx= mlx_init();
     data->map.map = NULL;
     data->map.row = 0;
-    data->map.row = 0;
+    data->map.col = 0;
     data->player.row = 0;
     data->player.col = 0;
     data->player.view = 0;
