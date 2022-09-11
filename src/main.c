@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/10 18:22:23 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/11 19:50:05 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void start_game(t_data *data)
 {   
-    data->mlx= mlx_init();
+	data->mlx = mlx_init();
     data->map.map = NULL;
     data->map.row = 0;
     data->map.col = 0;
@@ -29,14 +29,26 @@ static void start_game(t_data *data)
     data->c = 0;
 }
 
+// static void fill(int *ray)
+// {
+//     int i = 0;
+//     while(i < 2112)
+//     {
+//         ray[i] = 400;
+//         i++;    
+//     }
+// }
+
+
 int main(int ac, char **av)
 {
-    (void)ac;
-    (void)av;
-    
     t_data  data;
+    
     if (ac != 2)
         ft_exit("Error arg", &data);
     start_game(&data);
     pars_file(av[1], &data);
+    generate_game(&data);
+    // render_game(ray);
+    mlx_loop(data.mlx);
 }

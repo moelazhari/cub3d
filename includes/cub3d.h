@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 13:34:54 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/11 19:56:37 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#define	WSPACE " \t\v\f\r"
+#define	WSPACE	" \t\v\f\r"
+#define WIDTH	64
+#define HEIGHT	64
 
 typedef struct s_player
 {
 	int		row;
 	int		col;
 	char	view;
-	int		count;
 }				t_player;
 
 typedef struct s_map 
@@ -39,9 +40,27 @@ typedef struct s_map
 }
 				t_map;
 
+typedef struct s_win
+{
+	void	*win;
+	int		w;
+	int		h;
+}
+				t_win;
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
 typedef struct s_data
 {
 	void		*mlx;
+	t_win		win;
+	t_img		img;
 	t_map		map;
 	t_player    player;
 	void		*no;
@@ -57,6 +76,7 @@ int		check_file(char *file, char *type, t_data *data);
 void    get_color(char *line, t_data *data);
 void    get_map(int fd, t_data  *data);
 void	check_map(t_data *data);
+void	generate_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
 
 #endif

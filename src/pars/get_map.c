@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:22:34 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 15:20:08 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/11 18:28:37 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ static void	fill_map(char *line, t_data *data)
 	data->map.map = new;
 }
 
+static void get_colmn(t_data *data)
+{
+	int		max;
+	int		i;
+
+	max = 0;
+	i = 0;
+	while (data->map.map[i])
+	{
+		if ((int)ft_strlen(data->map.map[i]) > max)
+			max = ft_strlen(data->map.map[i]);
+		i++;
+	}
+	data->map.col = max;
+}
+
 void    get_map(int fd, t_data  *data)
 {
     char	*line;
@@ -53,4 +69,5 @@ void    get_map(int fd, t_data  *data)
 		line = get_next_line(fd);
 	if (line)
 		ft_exit("Error map", data);
+	get_colmn(data);
 }
