@@ -6,11 +6,63 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/10 14:47:24 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/11 15:36:48 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+
+int	check_file(char *file, char *type, t_data *data)
+{
+	int		fd;
+	int		i;
+	int		len;	
+
+	i = ft_strlen(type) - 1;
+	len = ft_strlen(file) - 1;
+	while (i >= 0)
+	{
+		if (file[len] != type[i])
+			ft_exit("Error wrong file type", data);
+		i--;
+		len--;
+	}
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		ft_exit("Error file not found", data);
+	return (fd);
+}
+
+static void    get_texture(char *line, t_data *data)
+{
+	int		w;
+	int		h;
+	char	*tmp;
+
+	tmp = line;
+	if (!ft_strncmp("NO", line, 2) || !ft_strncmp("SO", line, 2) \
+|| !ft_strncmp("WO", line, 2) || !ft_strncmp("EA", line, 2))
+	{
+		tmp = tmp + 2;
+		if (!ft_strchr(WSPACE, *tmp))
+			ft_exit("Error invalid identifier", data);
+		while (ft_strchr(WSPACE, *tmp))
+			tmp++;
+		check_file(tmp, ".xpm", data);
+		if (!ft_strncmp("NO", line, 2) && !data->no)
+			data->no = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("SO", line, 2) && !data->so)
+			data->so = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("WO", line, 2) && !data->wo)
+			data->wo = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("EA", line, 2) && !data->ea)
+			data->ea = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else
+			ft_exit("Error doubel identifier", data);
+	}
+	else
+		ft_exit("Error invalid identifier", data);
+}
 
 static	int	check_texture_color(t_data *data)
 {
@@ -25,7 +77,7 @@ static void get_texture_color(int fd, t_data *data)
 {
 	char	*line;
 	
-	line = get_next_line(fd); 
+	line = get_next_line(fd);
 	if (!line)
 			ft_exit("Error file empty", data);
 	while (line && !check_texture_color(data))
@@ -50,7 +102,7 @@ static void get_texture_color(int fd, t_data *data)
 				ft_exit("Error texture not found", data);
 }
 
-void    pars_file(char *file, t_data *data)
+void	pars_file(char *file, t_data *data)
 {
 	int		fd;
 

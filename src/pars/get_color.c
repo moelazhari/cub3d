@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 16:14:32 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/09 19:31:36 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/11 14:28:46 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void    get_color(char *line, t_data *data)
 	if (!ft_strncmp("F", line, 1) || !ft_strncmp("C", line, 1))
 	{
 		tmp++;
+		if (!ft_strchr(WSPACE, *tmp))
+			ft_exit("Error invalid identifier", data);
 		while (ft_strchr(WSPACE, *tmp))
 			tmp++;
 		split = ft_split(tmp, ',');

@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:22:34 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/10 17:59:30 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/11 15:20:08 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,24 @@ static void	fill_map(char *line, t_data *data)
 	data->map.map = new;
 }
 
-
-
 void    get_map(int fd, t_data  *data)
 {
     char	*line;
 	
 	line = get_next_line(fd);
+    while (line && line[0] == '\n')
+        line = get_next_line(fd);
 	if (!line)
 		ft_exit("Error map", data);
-    while (line[0] == '\n')
-        line = get_next_line(fd);
-    while (line)
+    while (line && line[0] != '\n')
     {
 		line = ft_strtrim(line, "\n");
         fill_map(line, data);
         line = get_next_line(fd);
     }
     check_map(data);
-    // for (int i = 0; data->map.map[i]; i++)
-    //     printf("%s", data->map.map[i]);
+	while (line && line[0] == '\n')
+		line = get_next_line(fd);
+	if (line)
+		ft_exit("Error map", data);
 }

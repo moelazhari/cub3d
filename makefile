@@ -6,7 +6,7 @@
 #    By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 16:18:39 by mazhari           #+#    #+#              #
-#    Updated: 2022/09/10 15:47:21 by mazhari          ###   ########.fr        #
+#    Updated: 2022/09/11 13:35:09 by mazhari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ B_DIR = ./build
 
 
 GNL= $(addprefix gnl/, get_next_line get_next_line_utils)
-PARS= $(addprefix pars/, pars_file map_utils get_texture get_color get_map check_map)
+PARS= $(addprefix pars/, pars_file get_color get_map check_map)
 SRC= $(addprefix src/, main exit_error $(PARS))
 FILES= $(SRC) $(GNL)
 OBJS= $(addprefix $(B_DIR)/, $(FILES:=.o))
