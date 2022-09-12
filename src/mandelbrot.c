@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/12 18:48:26 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/12 19:43:55 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	*draw_image_mandelbrot(t_data *data)
 	double pixelX;
 	double pixelY;
 	int	dof, r=0, mx, my;
-	float ra = data->angl - 0.3, rx,ry,xo,yo, hx,hy;	
+	float ra = data->angl - 0.6, rx,ry,xo,yo, hx,hy;	
 	float aTan;
 	int	*ret;
 
-	ret = malloc(600 * sizeof(int));
-	while (r < 600)
+	ret = malloc(32 * data->map.col * sizeof(int));
+	while (r < 32 * data->map.col)
 	{
 /////////////////////HORIZONTAL/////////////////////
 		dof = 0;

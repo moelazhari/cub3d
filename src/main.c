@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 18:41:42 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/12 19:55:35 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ int main(int ac, char **av)
     start_game(&data);
     pars_file(av[1], &data);
     generate_game(&data);
-    mlx_loop(data.mlx);
+	mlx_key_hook(data.win.win, key_handler, &data);
+	// mlx_hook(data.win.win, 17, 0, ft_exit, &data);
+	mlx_loop(data.mlx);
 }

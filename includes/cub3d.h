@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 18:34:27 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/12 19:54:48 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 #include <math.h>
 
 #define	WSPACE	" \t\v\f\r"
-#define WIDTH	64
-#define HEIGHT	64
+#define WIDTH	32
+#define HEIGHT	32
+#define PIXELS  32
 
 typedef struct s_player
 {
@@ -65,6 +66,8 @@ typedef struct s_data
 	t_map		map;
 	int			px;
 	int			py;
+	int			dx;
+	int			dy;
 	float		angl;
 	char		view;
 	void		*no;
@@ -85,4 +88,5 @@ void	generate_game(t_data *data);
 void	render_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
 int		*draw_image_mandelbrot(t_data *data);
+int	key_handler(int key, t_data *data);
 #endif
