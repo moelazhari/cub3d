@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 19:56:37 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/12 15:59:08 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void    get_color(char *line, t_data *data);
 void    get_map(int fd, t_data  *data);
 void	check_map(t_data *data);
 void	generate_game(t_data *data);
+void	render_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
 
 #endif

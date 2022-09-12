@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:50:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 18:13:32 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/12 12:10:53 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ int	main(void)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
     int x = 0;
+	int y;
     while (x < 1920)
     {
-        int y = 0;
+        y = 0;
         while (y < 1080)
         {
 	        my_mlx_pixel_put(&img, x, y, 0x00FF0000);

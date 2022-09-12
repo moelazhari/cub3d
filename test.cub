@@ -3,8 +3,8 @@ NO  ./texture/no.xpm
 WO  ./texture/wo.xpm
 EA  ./texture/ea.xpm 
 
-F 220,100,0
-C 225,30,0
+C 47,79,79
+F 112,128,144
 
 
 
