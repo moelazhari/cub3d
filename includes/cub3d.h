@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 15:59:08 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:34:27 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <math.h>
 
 #define	WSPACE	" \t\v\f\r"
 #define WIDTH	64
@@ -62,13 +63,17 @@ typedef struct s_data
 	t_win		win;
 	t_img		img;
 	t_map		map;
-	t_player    player;
+	int			px;
+	int			py;
+	float		angl;
+	char		view;
 	void		*no;
 	void		*so;
 	void		*wo;
 	void		*ea;
 	int			f;
 	int			c;
+	int			*ray;
 }				t_data;
 
 void    pars_file(char *file, t_data *data);
@@ -79,5 +84,5 @@ void	check_map(t_data *data);
 void	generate_game(t_data *data);
 void	render_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
-
+int		*draw_image_mandelbrot(t_data *data);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 15:21:55 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:41:42 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ static void start_game(t_data *data)
     data->map.map = NULL;
     data->map.row = 0;
     data->map.col = 0;
-    data->player.row = 0;
-    data->player.col = 0;
-    data->player.view = 0;
+    data->py = 0;
+    data->px = 0;
+	data->angl = 0;
+    data->view = 0;
     data->no = NULL;
     data->so = NULL;
     data->wo = NULL;

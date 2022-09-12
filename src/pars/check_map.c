@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 15:05:26 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:30:59 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,20 @@ static void	check_inside(char c, int row, int col, t_data *data)
 	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		check_flor_player(row, col, data);
-
 		if (c != '0')
 		{
-			if (data->player.view)
+			data->py = row * WIDTH;
+			data->px = row * WIDTH + 32; 
+			if (data->view)
 				ft_exit("Error map", data);
 			else if (c == 'N')
-				data->player.view = 'N';
+				data->view = 'N';
 			else if (c == 'S')
-				data->player.view = 'S';
+				data->view = 'S';
 			else if (c == 'E')
-				data->player.view = 'E';
+				data->view = 'E';
 			else if (c == 'W')
-				data->player.view = 'W';
+				data->view = 'W';
 		}
 	}
 }
