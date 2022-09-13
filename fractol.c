@@ -6,12 +6,51 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:20 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/11 16:32:32 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:16:02 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+// void	mandelbrot(t_ref *ref, char **map)
+// {
+// 	t_data	data;
 
+// 	// pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+// 	// deltaX /= pixels;
+// 	// deltaY /= pixels;
+// 	// pixelX = data->px;
+// 	// pixelY = data->py;
+// 	// while (pixels)
+// 	// {
+// 	// 	my_mlx_pixel_put(data, pixelX, pixelY , c * 888888);
+//     // 	pixelX += deltaX;
+//     // 	pixelY += deltaY;
+//     // 	--pixels;
+// 	// }
+// 	ref->x_max = 2;
+// 	ref->y_max = 2;
+// 	ref->x_min = -2;
+// 	ref->y_min = -2;
+// 	data.x = 'm';
+// 			data.angl = 0;
+// 			data.dx = cos(data.angl) * 5;
+// 			data.dy = sin(data.angl) * 5;
+// 	data.px = WIDTH / 2.1;
+// 	data.py = HIGHT / 1.5;
+// 	data.iter = 200;
+// 	data.ref = ref;
+// 	data.map = map;
+// 	data.mlx = mlx_init();
+// 	data.win = mlx_new_window(data.mlx, WIDTH, HIGHT, "Mandelbort");
+// 	data.img = mlx_new_image(data.mlx, WIDTH, HIGHT);
+// 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
+// 			&data.line_length, &data.endian);
+// 	draw_image_mandelbrot(&data);
+// 	mlx_key_hook(data.win, key_handler, &data);
+// 	mlx_mouse_hook(data.win, zoom, &data);
+// 	mlx_hook(data.win, 17, 0, exit_, &data);
+// 	mlx_loop(data.mlx);
+// }
 static int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;

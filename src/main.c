@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 19:55:35 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/13 19:07:09 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void start_game(t_data *data)
     data->map.map = NULL;
     data->map.row = 0;
     data->map.col = 0;
-    data->py = 0;
     data->px = 0;
+    data->py = 0;
 	data->angl = 0;
     data->view = 0;
     data->no = NULL;
@@ -40,8 +40,16 @@ int main(int ac, char **av)
         ft_exit("Error arg", &data);
     start_game(&data);
     pars_file(av[1], &data);
-    generate_game(&data);
+	data.win.w = 60 * PIXELS;
+    data.win.h = 60 * PIXELS;
+    data.win.win = mlx_new_window(data.mlx, data.win.w,\
+	data.win.h, "cub3d");
+	data.img.img = mlx_new_image(data.mlx, data.win.w, data.win.h);
+	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length,
+								&data.img.endian);
+	render_game(&data);
 	mlx_key_hook(data.win.win, key_handler, &data);
-	// mlx_hook(data.win.win, 17, 0, ft_exit, &data);
+	mlx_hook(data.win.win, 17, 0, 0, &data);
 	mlx_loop(data.mlx);
+	
 }

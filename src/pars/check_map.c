@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 18:30:59 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/13 19:13:03 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static void	check_inside(char c, int row, int col, t_data *data)
 		check_flor_player(row, col, data);
 		if (c != '0')
 		{
-			data->py = row * WIDTH;
-			data->px = row * WIDTH + 32; 
+			data->py = ((row + 1) * WIDTH) - 16 ;
+			data->px = ((col + 1) * WIDTH) + 16 ; 
 			if (data->view)
 				ft_exit("Error map", data);
 			else if (c == 'N')
@@ -79,6 +79,7 @@ static void	check_inside(char c, int row, int col, t_data *data)
 				data->view = 'E';
 			else if (c == 'W')
 				data->view = 'W';
+			
 		}
 	}
 }

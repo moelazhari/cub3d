@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/12 19:54:48 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/13 19:04:05 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@
 #define	WSPACE	" \t\v\f\r"
 #define WIDTH	32
 #define HEIGHT	32
-#define PIXELS  32
+#define PIXELS  16
+#define DEGRE 0.0174533
+#define PI 3.14159265359
 
-typedef struct s_player
-{
-	int		row;
-	int		col;
-	char	view;
-}				t_player;
 
 typedef struct s_map 
 {
@@ -68,6 +64,7 @@ typedef struct s_data
 	int			py;
 	int			dx;
 	int			dy;
+	int			dist;
 	float		angl;
 	char		view;
 	void		*no;
@@ -87,6 +84,7 @@ void	check_map(t_data *data);
 void	generate_game(t_data *data);
 void	render_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
-int		*draw_image_mandelbrot(t_data *data);
-int	key_handler(int key, t_data *data);
+int		*draw_walls(t_data *data);
+int		key_handler(int key, t_data *data);
+int		distance(int px, int py, float angle, t_data *data);
 #endif
