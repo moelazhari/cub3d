@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/15 19:03:40 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:21:23 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,68 +16,20 @@ static void	my_mlx_pixel_put(t_img *img, int x, int y, int color, t_data *data)
 {
 	char	*dst;
 
-	if (y < )
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if ((y >= 0 && y < data->win.h) && (x >= 0 && x < data->win.w) )
+	{
+		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+		*(unsigned int*)dst = color;
+	}
 }
 
-int	key_handler(int key, t_data *data)
-{
-	double	rx;
-	double	ry;
-
-	if (key == 123 || key == 124)
-	{
-		data->angl += (1 - 2 * (key == 123)) * 0.1;
-		if (data->angl < 0)
-			data->angl += 2*PI;
-		else if (data->angl > 2*PI)
-			data->angl -= 2*PI;
-		if (key == 123)
-		{
-			data->dx = cos(data->angl) * 5;
-			data->dy = sin(data->angl) * 5;
-		}
-		else 
-		{
-			data->dx = cos(data->angl) * 5;
-			data->dy = sin(data->angl) * 5;
-		}
-	}
-	else if (key == 125 || key == 126)
-	{
-		if (key == 126)
-		{
-			if (distance(data->px, data->py, data->angl, data) > 2)
-			{
-			data->px += data->dx;
-			data->py += data->dy;
-			}
-		}
-		else
-		{
-			if (distance(data->px, data->py, data->angl-PI, data) > 2 )
-			{
-			data->py -= data->dy;
-			data->px -= data->dx;
-			}
-		}
-	}
-	// else if (key == 53)
-	// 	ft_exit(key, d`ata);
-	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
-	render_game(data);
-	return (0);
-}
-
-void render_game(t_data *data)
+static void render_game(t_data *data)
 {
     int x = 0;
     int y;
 	data->ray = draw_walls(data);
 	y = 0;
-	// while (y<60)
-	// 	printf("%d\n",data->ray[y++]);
+
     while (x < data->win.w)
     {
         y = 0;
@@ -93,4 +45,46 @@ void render_game(t_data *data)
 	mlx_destroy_image(data->mlx, data->img.img);
 }
 
+int	key_handler(int key, t_data *data)
+{
+	if (key == LEFT || key == RIGHT)
+	{
+		if (key == RIGHT)
+			data->angl += 3 * DEGRE;
+		else 
+			data->angl -= 3 * DEGRE;
+	}
+	else if (key == UP || key == DOWN)
+	{
+		if (key == UP)
+		{
+			if (distance(data->px, data->py, data->angl, data) > 6)
+			{
+				data->px += cos(data->angl) * 5;
+				data->py -= sin(data->angl) * 5;
+			}
+		}
+		else
+		{
+			if (distance(data->px, data->py, data->angl, data) > 6)
+			{
+				data->px -= cos(data->angl) * 5;
+				data->py += sin(data->angl) * 5;
+			}
+		}
+	}
+	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
+	render_game(data);
+	return (0);
+}
 
+
+void	generate_game(t_data *data)
+{
+	data->win.win = mlx_new_window(data->mlx, data->win.w,\
+	data->win.h, "cub3d");
+	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
+	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length,
+								&data->img.endian);
+	render_game(data);
+}

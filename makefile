@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+         #
+#    By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 16:18:39 by mazhari           #+#    #+#              #
-#    Updated: 2022/09/12 18:32:41 by yel-khad         ###   ########.fr        #
+#    Updated: 2022/09/16 15:23:34 by mazhari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC= gcc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME= cub3d
 
@@ -27,7 +27,7 @@ B_DIR = ./build
 
 GNL= $(addprefix gnl/, get_next_line get_next_line_utils)
 PARS= $(addprefix pars/, pars_file get_color get_map check_map)
-SRC= $(addprefix src/, main generate_game exit_error mandelbrot $(PARS))
+SRC= $(addprefix src/, main generate_game exit_error draw_walls $(PARS))
 FILES= $(SRC) $(GNL)
 OBJS= $(addprefix $(B_DIR)/, $(FILES:=.o))
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/15 19:00:21 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:27:39 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ float	distance(int px, int py, float angle, t_data *data)
 	int	dof, mx, my;
 	float ra = angle, rx,ry,xo,yo, hx,hy;
 	float aTan;
-	float ret;
-	
 /////////////////////HORIZONTAL/////////////////////
 		dof = 0;
 		aTan= 1.0/tan(ra);
@@ -94,17 +92,9 @@ float	distance(int px, int py, float angle, t_data *data)
 ////////////////////////////////////////////////
 		distH = sqrt(((hx-px)*(hx-px)) + ((hy-py)*(hy-py)))  * cos(-data->angl + ra);
 		distV = sqrt(((rx-px)*(rx-px)) + ((ry-py)*(ry-py))) * cos(-data->angl + ra);
-		printf("distV===%f\n",distV);
-		printf("distH===%f\n",distH);
 		if (distV > distH)
-		{
-			ret = distH;
-		}
-		else 
-		{
-			ret = distV;
-		}
-		return (ret);
+			return (distH);
+		return (distV);
 }
 
 float	*draw_walls(t_data *data)
@@ -114,7 +104,6 @@ float	*draw_walls(t_data *data)
 	float ra = data->angl - (30*DEGRE);
 
 	ret = malloc(data->win.w  * sizeof(int));
-		printf("%d\n",data->win.w);
 	while (r < data->win.w)
 	{
 		float x = (distance(data->px, data->py, ra, data) / CUB_SIZE);
@@ -122,12 +111,8 @@ float	*draw_walls(t_data *data)
 			ret[r] = data->win.h / x;
 		else
 			ret[r] = data->win.h;
-		// if (r==528)
-		// if (ret[r] >= )
-		// 	ret[r] = 479;
 		ra += (60 * DEGRE) / data->win.w;
 		r++;
 	}
-	printf("data->px===%f\ndata->py===%f\n",data->px,data->py);
 	return (ret);
 }

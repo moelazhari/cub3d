@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/15 18:30:55 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:14:47 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_data
 	int			dy;
 	int			dist;
 	float		angl;
-	char		view;
 	void		*no;
 	void		*so;
 	void		*wo;
@@ -84,7 +83,6 @@ void    get_color(char *line, t_data *data);
 void    get_map(int fd, t_data  *data);
 void	check_map(t_data *data);
 void	generate_game(t_data *data);
-void	render_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
 float	*draw_walls(t_data *data);
 int		key_handler(int key, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/15 18:59:06 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:02:34 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,23 @@ static void	check_inside(char c, int row, int col, t_data *data)
 		 printf("dsgsfg\n");
 		ft_exit("Error map", data);
 	}
-	// if (c == ' ')
-	// 	check_space(row, col, data);
 	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		check_flor_player(row, col, data);
 		if (c != '0')
 		{
-			data->py = ((row + 1) * CUB_SIZE) - 14;
-			data->px = ((col + 1) * CUB_SIZE) + 14;
-			if (data->view)
+			data->px = (col * CUB_SIZE) + 16;
+			data->py = (row * CUB_SIZE) + 16;
+			if (data->angl != -1)
 				ft_exit("Error map", data);
 			else if (c == 'N')
-				data->view = 'N';
+				data->angl = (PI / 2);
 			else if (c == 'S')
-				data->view = 'S';
+				data->angl = PI + (PI/ 2);
 			else if (c == 'E')
-				data->view = 'E';
+				data->angl = 0;
 			else if (c == 'W')
-				data->view = 'W';
+				data->angl = PI;
 			
 		}
 	}
@@ -109,7 +107,7 @@ void	check_map(t_data *data)
 			ft_exit("Error map", data);
 		i++;
 	}
-	if (!data->view)
+	if (data->angl == -1)
 		ft_exit("Error map", data);
 	check_surrounded(data->map.map[i], data);
 }
