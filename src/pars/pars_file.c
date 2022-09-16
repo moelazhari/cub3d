@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 18:29:27 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 18:10:47 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static void    get_texture(char *line, t_data *data)
 		while (ft_strchr(WSPACE, *tmp))
 			tmp++;
 		check_file(tmp, ".xpm", data);
-		if (!ft_strncmp("NO", line, 2) && !data->no)
-			data->no = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
-		else if (!ft_strncmp("SO", line, 2) && !data->so)
-			data->so = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
-		else if (!ft_strncmp("WO", line, 2) && !data->wo)
-			data->wo = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
-		else if (!ft_strncmp("EA", line, 2) && !data->ea)
-			data->ea = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		if (!ft_strncmp("NO", line, 2) && !data->texture.no)
+			data->texture.no = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("SO", line, 2) && !data->texture.so)
+			data->texture.so = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("WO", line, 2) && !data->texture.wo)
+			data->texture.wo = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("EA", line, 2) && !data->texture.ea)
+			data->texture.ea = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
 		else
 			ft_exit("Error doubel identifier", data);
 	}
@@ -66,8 +66,8 @@ static void    get_texture(char *line, t_data *data)
 
 static	int	check_texture_color(t_data *data)
 {
-	if (data->no == NULL || data->so == NULL || data->wo == NULL \
-|| data->ea == NULL || data->f == 0 || data->c == 0)
+	if (data->texture.no == NULL || data->texture.so == NULL || data->texture.wo == NULL \
+|| data->texture.ea == NULL || data->f == 0 || data->c == 0)
 		return (0);
 
 	return(1);

@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/16 15:14:47 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 18:22:15 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <math.h>
 
 #define	WSPACE	" \t\v\f\r"
-#define CUB_SIZE 32
+#define CUB_SIZE 64
 #define DEGRE 0.0174533
 #define PI 3.14159265359
 
@@ -56,22 +56,25 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+typedef struct s_texture{
+	void		*no;
+	void		*so;
+	void		*wo;
+	void		*ea;	
+	int			offset_x;
+	int			offset_y;
+}               t_texture;
+
 typedef struct s_data
 {
 	void		*mlx;
 	t_win		win;
 	t_img		img;
 	t_map		map;
+	t_texture	texture;
 	float		px;
 	float		py;
-	int			dx;
-	int			dy;
-	int			dist;
 	float		angl;
-	void		*no;
-	void		*so;
-	void		*wo;
-	void		*ea;
 	int			f;
 	int			c;
 	float		*ray;

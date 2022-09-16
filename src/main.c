@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/16 15:17:10 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 18:09:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void init_game(t_data *data)
     data->px = 0;
     data->py = 0;
 	data->angl = -1;
-    data->no = NULL;
-    data->so = NULL;
-    data->wo = NULL;
-    data->ea = NULL;
+    data->texture.no = NULL;
+    data->texture.so = NULL;
+    data->texture.wo = NULL;
+    data->texture.ea = NULL;
     data->f = 0;
     data->c = 0;
 }

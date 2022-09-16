@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/16 15:02:34 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/16 16:58:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static void check_surrounded(char *line, t_data *data)
 	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != ' ')
-		{
-			  
 			ft_exit("Error map", data);
-		}
 		i++;
 	}
 }
