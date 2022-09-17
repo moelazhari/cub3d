@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/16 18:22:15 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/17 19:22:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <math.h>
 
 #define	WSPACE	" \t\v\f\r"
-#define CUB_SIZE 64
+#define CUB_SIZE 32
 #define DEGRE 0.0174533
 #define PI 3.14159265359
 
@@ -60,8 +60,9 @@ typedef struct s_texture{
 	void		*no;
 	void		*so;
 	void		*wo;
-	void		*ea;	
-	int			offset_x;
+	void		*ea;
+	float		hit_wall;	
+	int			*offset_x;
 	int			offset_y;
 }               t_texture;
 

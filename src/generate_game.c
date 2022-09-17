@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/16 18:17:04 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/17 19:21:31 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void render_game(t_data *data)
         while (y < (data->win.h - data->ray[x]) / 2)
 	        my_mlx_pixel_put(&(data->img), x, y++, data->c, data);
         while (y < ((data->win.h - data->ray[x]) / 2) + data->ray[x])
-	        my_mlx_pixel_put(&(data->img), x, y++, 0x0000FF00, data);
+	        my_mlx_pixel_put(&(data->img), x, y++, 0x00FF00, data);
         while(y < data->win.h)
             my_mlx_pixel_put(&(data->img), x, y++, data->f, data);
         x++;
@@ -50,26 +50,26 @@ int	key_handler(int key, t_data *data)
 	if (key == LEFT || key == RIGHT)
 	{
 		if (key == RIGHT)
-			data->angl += 3 * DEGRE;
+			data->angl += 5 * DEGRE;
 		else 
-			data->angl -= 3 * DEGRE;
+			data->angl -= 5 * DEGRE;
 	}
-	else if (key == UP || key == DOWN)
+	if (key == UP || key == DOWN)
 	{
 		if (key == UP)
 		{
-			if (distance(data->px, data->py, data->angl, data) > 6)
+			if (distance(data->px, data->py, data->angl, data) > 10)
 			{
-				data->px += cos(data->angl) * 5;
-				data->py -= sin(data->angl) * 5;
+				data->px += cos(data->angl) * 10;
+				data->py -= sin(data->angl) * 10;
 			}
 		}
 		else
 		{
-			if (distance(data->px, data->py, data->angl, data) > 6)
+			if (distance(data->px, data->py, data->angl - PI, data) > 10)
 			{
-				data->px -= cos(data->angl) * 5;
-				data->py += sin(data->angl) * 5;
+				data->px -= cos(data->angl) * 10;
+				data->py += sin(data->angl) * 10;
 			}
 		}
 	}
