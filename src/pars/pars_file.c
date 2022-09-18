@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/17 14:27:16 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/18 16:41:56 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void    get_texture(char *line, t_data *data)
 
 	tmp = line;
 	if (!ft_strncmp("NO", line, 2) || !ft_strncmp("SO", line, 2) \
-|| !ft_strncmp("WO", line, 2) || !ft_strncmp("EA", line, 2))
+|| !ft_strncmp("WE", line, 2) || !ft_strncmp("EA", line, 2))
 	{
 		tmp = tmp + 2;
 		if (!ft_strchr(WSPACE, *tmp))
@@ -49,14 +49,17 @@ static void    get_texture(char *line, t_data *data)
 		while (ft_strchr(WSPACE, *tmp))
 			tmp++;
 		check_file(tmp, ".xpm", data);
-		if (!ft_strncmp("NO", line, 2) && !data->texture.no)
-			data->texture.no = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
-		else if (!ft_strncmp("SO", line, 2) && !data->texture.so)
-			data->texture.so = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
-		else if (!ft_strncmp("WO", line, 2) && !data->texture.wo)
-			data->texture.wo = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
-		else if (!ft_strncmp("EA", line, 2) && !data->texture.ea)
-			data->texture.ea = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		if (!ft_strncmp("NO", line, 2) && !data->texture.no.img)
+		{
+			data->texture.no.img = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+			printf("%d===%d\n", w, h);
+		}
+		else if (!ft_strncmp("SO", line, 2) && !data->texture.so.img)
+			data->texture.so.img = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("WE", line, 2) && !data->texture.we.img)
+			data->texture.we.img = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
+		else if (!ft_strncmp("EA", line, 2) && !data->texture.ea.img)
+			data->texture.ea.img = mlx_xpm_file_to_image(data->mlx, tmp, &w, &h);
 		else
 			ft_exit("Error doubel identifier", data);
 	}
@@ -66,8 +69,8 @@ static void    get_texture(char *line, t_data *data)
 
 static	int	check_texture_color(t_data *data)
 {
-	if (data->texture.no == NULL || data->texture.so == NULL || data->texture.wo == NULL \
-|| data->texture.ea == NULL || data->f == 0 || data->c == 0)
+	if (data->texture.no.img == NULL || data->texture.so.img == NULL || data->texture.we.img == NULL \
+|| data->texture.ea.img == NULL || data->f == 0 || data->c == 0)
 		return (0);
 
 	return(1);
@@ -110,4 +113,12 @@ void	pars_file(char *file, t_data *data)
 	get_texture_color(fd, data);
 	get_map(fd, data);
 	// printf("row: %d col: %d\n", data->map.row, data->map.col);
+	data->texture.no.addr = (int *)mlx_get_data_addr(data->texture.no.img, &data->texture.no.bits_per_pixel,\
+	&data->texture.no.line_length , &data->texture.no.endian);
+	data->texture.so.addr = (int *)mlx_get_data_addr(data->texture.so.img, &data->texture.so.bits_per_pixel,\
+	&data->texture.so.line_length , &data->texture.so.endian);
+	data->texture.we.addr = (int *)mlx_get_data_addr(data->texture.we.img, &data->texture.we.bits_per_pixel,\
+	&data->texture.we.line_length , &data->texture.we.endian);
+	data->texture.ea.addr = (int *)mlx_get_data_addr(data->texture.ea.img, &data->texture.ea.bits_per_pixel,\
+	&data->texture.ea.line_length , &data->texture.ea.endian);
 }

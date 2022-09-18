@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/17 19:22:10 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/18 17:01:24 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,22 @@ typedef struct s_win
 
 typedef struct	s_img {
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }				t_img;
 
 typedef struct s_texture{
-	void		*no;
-	void		*so;
-	void		*wo;
-	void		*ea;
-	float		hit_wall;	
+	t_img		no;
+	t_img		so;
+	t_img		we;
+	t_img		ea;
+	float		hit_wall;
+	float		hit_wally;
+	char		view;
 	int			*offset_x;
-	int			offset_y;
+	int			*offset_y;
 }               t_texture;
 
 typedef struct s_data

@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/17 18:53:56 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/18 14:50:07 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void check_flor_player(int row, int col, t_data *data)
  || (data->map.map[row + 1][col] == ' ')\
  || (data->map.map[row - 1][col] == ' '))
  	{
-		
 		ft_exit("Error map", data);
 	}
 }

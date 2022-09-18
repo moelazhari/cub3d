@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/17 20:09:25 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/18 16:12:19 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,15 @@ float	distance(int px, int py, float angle, t_data *data)
 	distV = sqrt(((rx-px)*(rx-px)) + ((ry-py)*(ry-py))) * fabs(cos(ra - data->angl));
 	if (distV > distH)
 	{
-		// data->texture.hit_wall = hx;
+		// data->texture.view = 'N';
+		data->texture.hit_wall = hx;
 		return (distH);
 	}
-		// data->texture.hit_wall = hy;
+	// if (angle < data->angl)
+	// 	data->texture.view = 'E';
+	// else
+	// 	data->texture.view = 'W';
+	data->texture.hit_wall = ry;
 	return (distV);
 }
 
@@ -119,7 +124,8 @@ float	*draw_walls(t_data *data)
 		else
 			ret[x] = data->win.h;
 		ra += (60 * DEGRE) / data->win.w;
-		// data->texture.offset_x[x] = (int)data->texture.hit_wall % CUB_SIZE;
+		data->texture.offset_x[x] = (int)data->texture.hit_wall % CUB_SIZE;
+		// printf("%d\n", data->texture.offset_x[x]);
 		x++;
 	}
 	return (ret);
