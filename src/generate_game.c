@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/18 17:02:58 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/19 17:07:30 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ static void	my_mlx_pixel_put(t_img *img, int x, int y, int color, t_data *data)
 	}
 }
 
+
 static void render_game(t_data *data)
 {
     int x = 0;
     int y;
 	double rap;
-	data->ray = draw_walls(data);
+	data->ray = ray_casting(data);
 	y = 0;
 	int tmp;
 	
@@ -45,11 +46,10 @@ static void render_game(t_data *data)
     while (x < data->win.w)
 	{
 		rap =  CUB_SIZE / data->ray[x];
-		y = (data->win.h / 2) - (data->ray[x] / 2);
-			// if (data->texture.view == 'N')
+		y = (data->win.h - data->ray[x]) / 2;
 		while (y < (data->win.h / 2) - (data->ray[x] / 2) + data->ray[x])
 		{
-			tmp = (y - ((data->win.h / 2) - (data->ray[x] / 2))) * rap;
+			tmp = (y - ((data->win.h - data->ray[x]) / 2)) * rap;			
 	    	my_mlx_pixel_put(&(data->img), x, y, data->texture.no.addr[(tmp * (data->texture.no.line_length / 4)) + data->texture.offset_x[x]], data);
 			// printf("%d\n", (y % CUB_SIZE));
 			// if (data->texture.view == 'E')
@@ -64,39 +64,55 @@ static void render_game(t_data *data)
 	mlx_destroy_image(data->mlx, data->img.img);
 }
 
+void	moveing_up_down(int key, t_data *data)
+{
+	if (key == KEY_UP || key == KEY_W)
+	{
+		if (distance(data->px, data->py, data->angl, data) > 10)
+		{
+			printf("%f\n", data->angl);
+			printf("%f\n", cos(data->angl));
+			printf("%f\n", sin(data->angl));
+
+			data->px += cos(data->angl) * 10;
+			data->py -= sin(data->angl) * 10;
+		}
+	}
+	else
+	{
+		if (distance(data->px, data->py, data->angl - PI, data) > 10)
+		{
+			data->px -= cos(data->angl) * 10;
+			data->py += sin(data->angl) * 10;
+		}
+	}
+}
+
 int	key_handler(int key, t_data *data)
 {
-	if (key == LEFT || key == RIGHT)
+	if (key == KEY_LEFT || key == KEY_RIGHT)
 	{
-		if (key == RIGHT)
+		if (key == KEY_RIGHT)
 			data->angl += 5 * DEGRE;
 		else 
 			data->angl -= 5 * DEGRE;
 	}
-	if (key == UP || key == DOWN)
+	if (key == KEY_UP || key == KEY_DOWN || key == KEY_W || key == KEY_S)
+		moveing_up_down(key, data);
+	else if (key == KEY_A)
 	{
-		if (key == UP)
-		{
-			if (distance(data->px, data->py, data->angl, data) > 10)
-			{
-				data->px += cos(data->angl) * 10;
-				data->py -= sin(data->angl) * 10;
-			}
-		}
-		else
-		{
-			if (distance(data->px, data->py, data->angl - PI, data) > 10)
-			{
-				data->px -= cos(data->angl) * 10;
-				data->py += sin(data->angl) * 10;
-			}
-		}
+		data->px += cos((PI / 2) - data->angl) * 10;
+		data->py += sin((PI / 2) - data->angl) * 10;
+	}
+	else if (key == KEY_D)
+	{
+		data->px -= sin(data->angl) * 10;
+		data->py -= cos(data->angl) * 10;
 	}
 	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
 	render_game(data);
 	return (0);
 }
-
 
 void	generate_game(t_data *data)
 {

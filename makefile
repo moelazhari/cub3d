@@ -6,7 +6,7 @@
 #    By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 16:18:39 by mazhari           #+#    #+#              #
-#    Updated: 2022/09/16 15:23:34 by mazhari          ###   ########.fr        #
+#    Updated: 2022/09/19 14:26:36 by mazhari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ B_DIR = ./build
 
 GNL= $(addprefix gnl/, get_next_line get_next_line_utils)
 PARS= $(addprefix pars/, pars_file get_color get_map check_map)
-SRC= $(addprefix src/, main generate_game exit_error draw_walls $(PARS))
+SRC= $(addprefix src/, main generate_game exit_error ray_casting $(PARS))
 FILES= $(SRC) $(GNL)
 OBJS= $(addprefix $(B_DIR)/, $(FILES:=.o))
 
@@ -35,7 +35,7 @@ all: $(NAME)
 
 $(B_DIR)/%.o: %.c $(LIBFT_LIB) $(HEDEAR)
 	mkdir -p $(@D)
-	$(CC) -I$(INCLUDES)  -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDES)  -c $< -o $@
 
 $(NAME): $(OBJS) $(HEDEAR)
 	$(CC)  $(MLXFLAGS) $(LIBFT_LIB) $(OBJS) -o $(NAME)

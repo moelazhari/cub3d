@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_walls.c                                       :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/18 16:12:19 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/19 14:35:22 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ float	distance(int px, int py, float angle, t_data *data)
 	return (distV);
 }
 
-float	*draw_walls(t_data *data)
+float	*ray_casting(t_data *data)
 {
 	float	*ret;
 	int		x;
@@ -120,12 +120,11 @@ float	*draw_walls(t_data *data)
 	{
 		tmp = (distance(data->px, data->py, ra, data) / CUB_SIZE);
 		if (tmp != 0)
-			ret[x] = data->win.h / (2*tmp);
+			ret[x] = data->win.h / (2 * tmp);
 		else
 			ret[x] = data->win.h;
 		ra += (60 * DEGRE) / data->win.w;
 		data->texture.offset_x[x] = (int)data->texture.hit_wall % CUB_SIZE;
-		// printf("%d\n", data->texture.offset_x[x]);
 		x++;
 	}
 	return (ret);
