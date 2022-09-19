@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/19 14:35:22 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/19 19:53:14 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-float	distance(int px, int py, float angle, t_data *data)
+t_ray	distance(int px, int py, float angle, t_data *data)
 {
 	float distH;
 	float	distV;
 	int	dof, mx, my;
 	float ra = angle, rx,ry,xo,yo, hx,hy;
 	float aTan;
+	t_ray	ret;
 /////////////////////HORIZONTAL/////////////////////
 	dof = 0;
 	aTan= 1.0/tan(ra);
@@ -94,37 +95,35 @@ float	distance(int px, int py, float angle, t_data *data)
 	distV = sqrt(((rx-px)*(rx-px)) + ((ry-py)*(ry-py))) * fabs(cos(ra - data->angl));
 	if (distV > distH)
 	{
-		// data->texture.view = 'N';
-		data->texture.hit_wall = hx;
-		return (distH);
+		if (distH != 0)
+			ret.wall_h = data->win.h / (distH / CUB_SIZE);
+		else
+			ret.wall_h = data->win.h;
+		ret.offset_x = (int)hx % CUB_SIZE;
+		ret.view = ('N' * (sin(angle) > 0.001)) + ('S' * (sin(angle) < -0.001));
+		return (ret);
 	}
-	// if (angle < data->angl)
-	// 	data->texture.view = 'E';
-	// else
-	// 	data->texture.view = 'W';
-	data->texture.hit_wall = ry;
-	return (distV);
+	if (distV != 0)
+		ret.wall_h = data->win.h / (distV / CUB_SIZE);
+	else
+		ret.wall_h = data->win.h;
+	ret.offset_x = (int)ry % CUB_SIZE;
+	ret.view = ('W' * (cos(angle) > 0.001)) + ('E' * (cos(angle) < -0.001));
+	return (ret);
 }
 
-float	*ray_casting(t_data *data)
+t_ray	*ray_casting(t_data *data)
 {
-	float	*ret;
+	t_ray	*ret;
 	int		x;
-	float	tmp;
 	float	ra = data->angl - (30 * DEGRE);
 
-	ret = malloc(data->win.w  * sizeof(float));
-	data->texture.offset_x = malloc(data->win.w  * sizeof(int));
+	ret = malloc(data->win.w  * sizeof(t_ray));
 	x = 0;
 	while (x < data->win.w)
 	{
-		tmp = (distance(data->px, data->py, ra, data) / CUB_SIZE);
-		if (tmp != 0)
-			ret[x] = data->win.h / (2 * tmp);
-		else
-			ret[x] = data->win.h;
+		ret[x] = distance(data->px, data->py, ra, data);
 		ra += (60 * DEGRE) / data->win.w;
-		data->texture.offset_x[x] = (int)data->texture.hit_wall % CUB_SIZE;
 		x++;
 	}
 	return (ret);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/19 17:07:30 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/19 19:51:26 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ static void render_game(t_data *data)
 	x = 0;
     while (x < data->win.w)
 	{
-		rap =  CUB_SIZE / data->ray[x];
-		y = (data->win.h - data->ray[x]) / 2;
-		while (y < (data->win.h / 2) - (data->ray[x] / 2) + data->ray[x])
+		rap =  CUB_SIZE / data->ray[x].wall_h;
+		y = (data->win.h - data->ray[x].wall_h) / 2;
+		while (y < (data->win.h / 2) - (data->ray[x].wall_h / 2) + data->ray[x].wall_h)
 		{
-			tmp = (y - ((data->win.h - data->ray[x]) / 2)) * rap;			
-	    	my_mlx_pixel_put(&(data->img), x, y, data->texture.no.addr[(tmp * (data->texture.no.line_length / 4)) + data->texture.offset_x[x]], data);
+			tmp = (y - ((data->win.h - data->ray[x].wall_h) / 2)) * rap;			
+	    	my_mlx_pixel_put(&(data->img), x, y, data->texture.no.addr[(tmp * (data->texture.no.line_length / 4)) + data->ray[x].offset_x], data);
 			// printf("%d\n", (y % CUB_SIZE));
 			// if (data->texture.view == 'E')
 	       	//  	my_mlx_pixel_put(&(data->img), x, y, data->texture.ea.addr[((y % CUB_SIZE) * (data->texture.ea.line_length) / 4) + data->texture.offset_x[x]], data);
@@ -68,19 +68,15 @@ void	moveing_up_down(int key, t_data *data)
 {
 	if (key == KEY_UP || key == KEY_W)
 	{
-		if (distance(data->px, data->py, data->angl, data) > 10)
+		if ((data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl, data).wall_h > 10)
 		{
-			printf("%f\n", data->angl);
-			printf("%f\n", cos(data->angl));
-			printf("%f\n", sin(data->angl));
-
 			data->px += cos(data->angl) * 10;
 			data->py -= sin(data->angl) * 10;
 		}
 	}
 	else
 	{
-		if (distance(data->px, data->py, data->angl - PI, data) > 10)
+		if ((data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl - PI, data).wall_h > 10)
 		{
 			data->px -= cos(data->angl) * 10;
 			data->py += sin(data->angl) * 10;
@@ -101,8 +97,12 @@ int	key_handler(int key, t_data *data)
 		moveing_up_down(key, data);
 	else if (key == KEY_A)
 	{
-		data->px += cos((PI / 2) - data->angl) * 10;
-		data->py += sin((PI / 2) - data->angl) * 10;
+		printf("%f\n", (data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl - (PI /2), data).wall_h);
+		if ((data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl - (PI /2), data).wall_h > 10)
+		{
+			data->px += cos((PI / 2) - data->angl) * 10;
+			data->py += sin((PI / 2) - data->angl) * 10;
+		}
 	}
 	else if (key == KEY_D)
 	{

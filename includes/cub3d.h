@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/19 14:41:08 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/19 19:26:08 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,13 @@ typedef struct s_texture{
 	t_img		so;
 	t_img		we;
 	t_img		ea;
-	float		hit_wall;
-	char		view;
-	int			*offset_x;
 }               t_texture;
+
+typedef struct s_ray {
+	char	view;
+	float	wall_h;
+	int		offset_x;
+}				t_ray;
 
 typedef struct s_data
 {
@@ -85,7 +88,7 @@ typedef struct s_data
 	float		angl;
 	int			f;
 	int			c;
-	float		*ray;
+	t_ray		*ray;
 }				t_data;
 
 void    pars_file(char *file, t_data *data);
@@ -95,7 +98,7 @@ void    get_map(int fd, t_data  *data);
 void	check_map(t_data *data);
 void	generate_game(t_data *data);
 void	ft_exit(char *error_msg, t_data *data);
-float	*ray_casting(t_data *data);
+t_ray	*ray_casting(t_data *data);
 int		key_handler(int key, t_data *data);
-float	distance(int px, int py, float angle, t_data *data);
+t_ray	distance(int px, int py, float angle, t_data *data);
 #endif
