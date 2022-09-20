@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/20 14:16:49 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:40:52 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ t_ray	distance(int px, int py, float angle, t_data *data)
 			ret.wall_h = data->win.h / (distH * fabs(cos(ra - data->angl)) / CUB_SIZE);
 		else
 			ret.wall_h = data->win.h;
-		ret.offset_x = (int)hx % CUB_SIZE;
 		ret.view = ('N' * (sin(angle) > 0.001)) + ('S' * (sin(angle) < -0.001));
+		ret.offset_x = ((int)ry % data->texture.no.img_w * (ret.view == 'N')) + ((int)ry % data->texture.so.img_w * (ret.view == 'S'));
 		return (ret);
 	}
 	ret.dist = distV;
@@ -109,8 +109,8 @@ t_ray	distance(int px, int py, float angle, t_data *data)
 		ret.wall_h = data->win.h / (distV * fabs(cos(ra - data->angl)) / CUB_SIZE);
 	else
 		ret.wall_h = data->win.h;
-	ret.offset_x = (int)ry % CUB_SIZE;
 	ret.view = ('W' * (cos(angle) > 0.001)) + ('E' * (cos(angle) < -0.001));
+	ret.offset_x = ((int)ry % data->texture.we.img_w * (ret.view == 'W')) + ((int)ry % data->texture.ea.img_w * (ret.view == 'E'));
 	return (ret);
 }
 
