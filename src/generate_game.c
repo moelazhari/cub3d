@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/20 14:19:44 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:23:57 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ int	key_handler(int key, t_data *data)
 			data->angl += 5 * DEGRE;
 		else 
 			data->angl -= 5 * DEGRE;
+		if (data->angl > 2 * PI)
+			data->angl -= 2 * PI;
+		else if (data->angl < 0)
+			data->angl += 2 * PI;
 	}
 	if (key == KEY_UP || key == KEY_DOWN || key == KEY_W || key == KEY_S)
 		moveing_up_down(key, data);
