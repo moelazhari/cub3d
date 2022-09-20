@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/19 19:53:14 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:16:49 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,22 @@ t_ray	distance(int px, int py, float angle, t_data *data)
 		}
 	}
 ////////////////////////////////////////////////
-	distH = sqrt(((hx-px)*(hx-px)) + ((hy-py)*(hy-py)))  * fabs(cos(ra - data->angl));
-	distV = sqrt(((rx-px)*(rx-px)) + ((ry-py)*(ry-py))) * fabs(cos(ra - data->angl));
+	distH = sqrt(((hx-px)*(hx-px)) + ((hy-py)*(hy-py)));
+	distV = sqrt(((rx-px)*(rx-px)) + ((ry-py)*(ry-py)));
 	if (distV > distH)
 	{
+		ret.dist = distH;
 		if (distH != 0)
-			ret.wall_h = data->win.h / (distH / CUB_SIZE);
+			ret.wall_h = data->win.h / (distH * fabs(cos(ra - data->angl)) / CUB_SIZE);
 		else
 			ret.wall_h = data->win.h;
 		ret.offset_x = (int)hx % CUB_SIZE;
 		ret.view = ('N' * (sin(angle) > 0.001)) + ('S' * (sin(angle) < -0.001));
 		return (ret);
 	}
+	ret.dist = distV;
 	if (distV != 0)
-		ret.wall_h = data->win.h / (distV / CUB_SIZE);
+		ret.wall_h = data->win.h / (distV * fabs(cos(ra - data->angl)) / CUB_SIZE);
 	else
 		ret.wall_h = data->win.h;
 	ret.offset_x = (int)ry % CUB_SIZE;

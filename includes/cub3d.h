@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/19 19:26:08 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:14:55 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_texture{
 typedef struct s_ray {
 	char	view;
 	float	wall_h;
+	float	dist;
 	int		offset_x;
 }				t_ray;
 

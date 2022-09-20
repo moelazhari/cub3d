@@ -6,7 +6,7 @@
 /*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/19 19:51:26 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:19:44 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	moveing_up_down(int key, t_data *data)
 {
 	if (key == KEY_UP || key == KEY_W)
 	{
-		if ((data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl, data).wall_h > 10)
+		if (distance(data->px, data->py, data->angl, data).dist > 10)
 		{
 			data->px += cos(data->angl) * 10;
 			data->py -= sin(data->angl) * 10;
@@ -76,7 +76,7 @@ void	moveing_up_down(int key, t_data *data)
 	}
 	else
 	{
-		if ((data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl - PI, data).wall_h > 10)
+		if (distance(data->px, data->py, data->angl - PI, data).dist > 10)
 		{
 			data->px -= cos(data->angl) * 10;
 			data->py += sin(data->angl) * 10;
@@ -97,8 +97,7 @@ int	key_handler(int key, t_data *data)
 		moveing_up_down(key, data);
 	else if (key == KEY_A)
 	{
-		printf("%f\n", (data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl - (PI /2), data).wall_h);
-		if ((data->win.h * CUB_SIZE) / distance(data->px, data->py, data->angl - (PI /2), data).wall_h > 10)
+		if (distance(data->px, data->py, data->angl - (PI /2), data).dist > 10)
 		{
 			data->px += cos((PI / 2) - data->angl) * 10;
 			data->py += sin((PI / 2) - data->angl) * 10;
@@ -106,8 +105,11 @@ int	key_handler(int key, t_data *data)
 	}
 	else if (key == KEY_D)
 	{
-		data->px -= sin(data->angl) * 10;
-		data->py -= cos(data->angl) * 10;
+		if (distance(data->px, data->py, data->angl + (PI /2), data).dist > 10)
+		{
+			data->px -= cos((PI / 2) - data->angl) * 10;
+			data->py -= sin((PI / 2) - data->angl) * 10;
+		}
 	}
 	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
 	render_game(data);
