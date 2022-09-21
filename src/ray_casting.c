@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/20 14:40:52 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:32:23 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_ray	distance(int px, int py, float angle, t_data *data)
+t_ray	distance(int px, int py, double angle, t_data *data)
 {
-	float distH;
-	float	distV;
-	int	dof, mx, my;
-	float ra = angle, rx,ry,xo,yo, hx,hy;
-	float aTan;
+	double 	distH;
+	double	distV;
+	int		dof, mx, my;
+	double 	ra = angle, rx,ry,xo,yo, hx,hy;
+	double aTan;
 	t_ray	ret;
 /////////////////////HORIZONTAL/////////////////////
 	dof = 0;
@@ -97,20 +97,20 @@ t_ray	distance(int px, int py, float angle, t_data *data)
 	{
 		ret.dist = distH;
 		if (distH != 0)
-			ret.wall_h = data->win.h / (distH * fabs(cos(ra - data->angl)) / CUB_SIZE);
-		else
+			ret.wall_h= data->win.h  * CUB_SIZE / (distH * fabs(cos(ra - data->angl)));
+		else if (ret.wall_h > data->win.h)
 			ret.wall_h = data->win.h;
-		ret.view = ('N' * (sin(angle) > 0.001)) + ('S' * (sin(angle) < -0.001));
-		ret.offset_x = ((int)ry % data->texture.no.img_w * (ret.view == 'N')) + ((int)ry % data->texture.so.img_w * (ret.view == 'S'));
+		ret.view = ('N' * (sin(angle) >= 0.001)) + ('S' * (sin(angle) <= -0.001));
+		ret.offset_x = (int)hx % CUB_SIZE;
 		return (ret);
 	}
 	ret.dist = distV;
 	if (distV != 0)
-		ret.wall_h = data->win.h / (distV * fabs(cos(ra - data->angl)) / CUB_SIZE);
-	else
+		ret.wall_h = data->win.h  * CUB_SIZE / (distV * fabs(cos(ra - data->angl)));
+	else if (ret.wall_h > data->win.h)
 		ret.wall_h = data->win.h;
-	ret.view = ('W' * (cos(angle) > 0.001)) + ('E' * (cos(angle) < -0.001));
-	ret.offset_x = ((int)ry % data->texture.we.img_w * (ret.view == 'W')) + ((int)ry % data->texture.ea.img_w * (ret.view == 'E'));
+	ret.view = ('W' * (cos(angle) >= 0.001)) + ('E' * (cos(angle) <= -0.001));
+	ret.offset_x = (int)ry % CUB_SIZE;
 	return (ret);
 }
 
@@ -118,7 +118,7 @@ t_ray	*ray_casting(t_data *data)
 {
 	t_ray	*ret;
 	int		x;
-	float	ra = data->angl - (30 * DEGRE);
+	double	ra = data->angl - (30 * DEGRE);
 
 	ret = malloc(data->win.w  * sizeof(t_ray));
 	x = 0;

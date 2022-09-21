@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 16:14:32 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 14:28:46 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/21 19:15:35 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	*pars_rgb(char **split, t_data *data)
 			ft_exit("Error invalid rgb", data);
 		i++;
 	}
-	// free(split);
+	ft_freearr(split);
 	return (rgb);
 }
 

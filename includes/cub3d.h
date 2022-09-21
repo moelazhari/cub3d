@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/20 14:38:24 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:14:23 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 #define KEY_A 0
 #define KEY_D 2
  
-
-
 
 typedef struct s_map 
 {
@@ -74,8 +72,8 @@ typedef struct s_texture{
 
 typedef struct s_ray {
 	char	view;
-	float	wall_h;
-	float	dist;
+	double	wall_h;
+	double	dist;
 	int		offset_x;
 }				t_ray;
 
@@ -86,12 +84,15 @@ typedef struct s_data
 	t_img		img;
 	t_map		map;
 	t_texture	texture;
-	float		px;
-	float		py;
-	float		angl;
+	double		px;
+	double		py;
+	double		angl;
 	int			f;
 	int			c;
 	t_ray		*ray;
+	int			move;
+	int			strafe;
+	int			rotation;
 }				t_data;
 
 void    pars_file(char *file, t_data *data);
@@ -99,9 +100,14 @@ int		check_file(char *file, char *type, t_data *data);
 void    get_color(char *line, t_data *data);
 void    get_map(int fd, t_data  *data);
 void	check_map(t_data *data);
+void    get_texture(char *line, t_data *data);
 void	generate_game(t_data *data);
-void	ft_exit(char *error_msg, t_data *data);
+void	render_game(t_data *data);
 t_ray	*ray_casting(t_data *data);
+t_ray	distance(int px, int py, double angle, t_data *data);
 int		key_handler(int key, t_data *data);
-t_ray	distance(int px, int py, float angle, t_data *data);
+int		key_release(int key, t_data *data);
+int		render_frame(t_data *data);
+void	ft_exit(char *error_msg, t_data *data);
+void	ft_freearr(char **arr);
 #endif

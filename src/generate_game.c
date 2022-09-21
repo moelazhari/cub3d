@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/20 14:23:57 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:10:52 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,55 @@ static void	my_mlx_pixel_put(t_img *img, int x, int y, int color, t_data *data)
 {
 	char	*dst;
 
+	(void)data;
 	if ((y >= 0 && y < data->win.h) && (x >= 0 && x < data->win.w) )
 	{
+		// printf("x=%d:::y=%d\n", x, y);
 		dst = (char *)img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
 	}
 }
 
-
-static void render_game(t_data *data)
+void	draw_walls(t_data *data)
 {
-    int x = 0;
+	int		x;
+	int		y;
+	int		tmp;
+	double	rap;
+
+	x = 0;
+	while (x < data->win.w)
+	{
+		rap =  CUB_SIZE / data->ray[x].wall_h;
+		y = (data->win.h - data->ray[x].wall_h) / 2;
+		while (y < (data->ray[x].wall_h + data->win.h) / 2)
+		{
+			tmp = (y - ((data->win.h - data->ray[x].wall_h) / 2)) * rap;
+			if (data->ray[x].view == 'N')
+				my_mlx_pixel_put(&(data->img), x, y, data->texture.no.addr[(tmp * (data->texture.no.line_length / 4)) + data->ray[x].offset_x], data);
+			else if (data->ray[x].view == 'S')	
+				my_mlx_pixel_put(&(data->img), x, y, data->texture.so.addr[(tmp * (data->texture.so.line_length / 4)) + data->ray[x].offset_x], data);
+			else if (data->ray[x].view == 'W')
+				my_mlx_pixel_put(&(data->img), x, y, data->texture.we.addr[(tmp * (data->texture.we.line_length / 4)) + data->ray[x].offset_x], data);
+			else
+				my_mlx_pixel_put(&(data->img), x, y, data->texture.ea.addr[(tmp * (data->texture.ea.line_length / 4)) + data->ray[x].offset_x], data);
+			y++;
+		}
+		x++;
+	}
+}
+
+void	render_game(t_data *data)
+{
+    int x;
     int y;
-	double rap;
+
+	mlx_destroy_image(data->mlx, data->img.img);
+	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
+	data->img.addr = (int *)mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length,
+			&data->img.endian);
 	data->ray = ray_casting(data);
-	y = 0;
-	int tmp;
-	
+	x = 0;
     while (x < data->win.w)
     {
         y = 0;
@@ -42,82 +74,9 @@ static void render_game(t_data *data)
             my_mlx_pixel_put(&(data->img), x, y++, data->f, data);
         x++;
     }
-	x = 0;
-    while (x < data->win.w)
-	{
-		rap =  CUB_SIZE / data->ray[x].wall_h;
-		y = (data->win.h - data->ray[x].wall_h) / 2;
-		while (y < (data->win.h / 2) - (data->ray[x].wall_h / 2) + data->ray[x].wall_h)
-		{
-			tmp = (y - ((data->win.h - data->ray[x].wall_h) / 2)) * rap;			
-	    	my_mlx_pixel_put(&(data->img), x, y, data->texture.no.addr[(tmp * (data->texture.no.line_length / 4)) + data->ray[x].offset_x], data);
-			// printf("%d\n", (y % CUB_SIZE));
-			// if (data->texture.view == 'E')
-	       	//  	my_mlx_pixel_put(&(data->img), x, y, data->texture.ea.addr[((y % CUB_SIZE) * (data->texture.ea.line_length) / 4) + data->texture.offset_x[x]], data);
-			// if (data->texture.view == 'W')
-	       	//  	my_mlx_pixel_put(&(data->img), x, y, data->texture.we.addr[((y % CUB_SIZE) * (data->texture.we.line_length) / 4) + data->texture.offset_x[x]], data);
-			y++;
-		}
-		x++;
-	}
+	draw_walls(data);
 	mlx_put_image_to_window(data->mlx, data->win.win, data->img.img, 0, 0);
-	mlx_destroy_image(data->mlx, data->img.img);
-}
-
-void	moveing_up_down(int key, t_data *data)
-{
-	if (key == KEY_UP || key == KEY_W)
-	{
-		if (distance(data->px, data->py, data->angl, data).dist > 10)
-		{
-			data->px += cos(data->angl) * 10;
-			data->py -= sin(data->angl) * 10;
-		}
-	}
-	else
-	{
-		if (distance(data->px, data->py, data->angl - PI, data).dist > 10)
-		{
-			data->px -= cos(data->angl) * 10;
-			data->py += sin(data->angl) * 10;
-		}
-	}
-}
-
-int	key_handler(int key, t_data *data)
-{
-	if (key == KEY_LEFT || key == KEY_RIGHT)
-	{
-		if (key == KEY_RIGHT)
-			data->angl += 5 * DEGRE;
-		else 
-			data->angl -= 5 * DEGRE;
-		if (data->angl > 2 * PI)
-			data->angl -= 2 * PI;
-		else if (data->angl < 0)
-			data->angl += 2 * PI;
-	}
-	if (key == KEY_UP || key == KEY_DOWN || key == KEY_W || key == KEY_S)
-		moveing_up_down(key, data);
-	else if (key == KEY_A)
-	{
-		if (distance(data->px, data->py, data->angl - (PI /2), data).dist > 10)
-		{
-			data->px += cos((PI / 2) - data->angl) * 10;
-			data->py += sin((PI / 2) - data->angl) * 10;
-		}
-	}
-	else if (key == KEY_D)
-	{
-		if (distance(data->px, data->py, data->angl + (PI /2), data).dist > 10)
-		{
-			data->px -= cos((PI / 2) - data->angl) * 10;
-			data->py -= sin((PI / 2) - data->angl) * 10;
-		}
-	}
-	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
-	render_game(data);
-	return (0);
+	free(data->ray);
 }
 
 void	generate_game(t_data *data)
