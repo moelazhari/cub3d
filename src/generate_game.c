@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/21 19:10:52 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/22 16:11:29 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	my_mlx_pixel_put(t_img *img, int x, int y, int color, t_data *data)
 	(void)data;
 	if ((y >= 0 && y < data->win.h) && (x >= 0 && x < data->win.w) )
 	{
-		// printf("x=%d:::y=%d\n", x, y);
 		dst = (char *)img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
 	}
@@ -37,7 +36,7 @@ void	draw_walls(t_data *data)
 	{
 		rap =  CUB_SIZE / data->ray[x].wall_h;
 		y = (data->win.h - data->ray[x].wall_h) / 2;
-		while (y < (data->ray[x].wall_h + data->win.h) / 2)
+		while (y < data->win.h) //|| y < (data->ray[x].wall_h + data->win.h) / 2)
 		{
 			tmp = (y - ((data->win.h - data->ray[x].wall_h) / 2)) * rap;
 			if (data->ray[x].view == 'N')
@@ -57,7 +56,7 @@ void	draw_walls(t_data *data)
 void	render_game(t_data *data)
 {
     int x;
-    int y;
+    // int y;
 
 	mlx_destroy_image(data->mlx, data->img.img);
 	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
@@ -65,18 +64,18 @@ void	render_game(t_data *data)
 			&data->img.endian);
 	data->ray = ray_casting(data);
 	x = 0;
-    while (x < data->win.w)
-    {
-        y = 0;
-        while (y < data->win.h / 2)
-	        my_mlx_pixel_put(&(data->img), x, y++, data->c, data);
-        while(y < data->win.h)
-            my_mlx_pixel_put(&(data->img), x, y++, data->f, data);
-        x++;
-    }
+    // while (x < data->win.w)
+    // {
+    //     y = 0;
+    //     while (y < data->win.h / 2)
+	//         my_mlx_pixel_put(&(data->img), x, y++, data->c, data);
+    //     while(y < data->win.h)
+    //         my_mlx_pixel_put(&(data->img), x, y++, data->f, data);
+    //     x++;
+    // }
 	draw_walls(data);
-	mlx_put_image_to_window(data->mlx, data->win.win, data->img.img, 0, 0);
 	free(data->ray);
+	mlx_put_image_to_window(data->mlx, data->win.win, data->img.img, 0, 0);
 }
 
 void	generate_game(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/21 19:14:23 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:55:53 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <math.h>
 
 #define	WSPACE	" \t\v\f\r"
-#define CUB_SIZE 32
+#define CUB_SIZE 64
 #define DEGRE 0.0174533
 #define PI 3.14159265359
 
@@ -84,8 +84,8 @@ typedef struct s_data
 	t_img		img;
 	t_map		map;
 	t_texture	texture;
-	double		px;
-	double		py;
+	int			px;
+	int			py;
 	double		angl;
 	int			f;
 	int			c;

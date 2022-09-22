@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/21 18:49:28 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:28:18 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main(int ac, char **av)
     generate_game(&data);
     mlx_hook(data.win.win, 2, 2L << 0, key_handler, &data);
     mlx_hook(data.win.win, 3, 2L << 0, key_release, &data);
-	mlx_hook(data.win.win, 17, 0, 0, &data);
+	// mlx_hook(data.win.win, 17, 0, 0, &data);
     mlx_loop_hook(data.mlx, render_frame, &data);
 	mlx_loop(data.mlx);
 }

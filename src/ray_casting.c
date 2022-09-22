@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/21 19:32:23 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:16:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ t_ray	distance(int px, int py, double angle, t_data *data)
 /////////////////////HORIZONTAL/////////////////////
 	dof = 0;
 	aTan= 1.0/tan(ra);
-	if (sin(ra) > 0.001)
+	if (sin(ra) > 0.0001)
 	{
-		ry = ((py / CUB_SIZE)* CUB_SIZE)  - 0.0001;
+		ry = ((py / CUB_SIZE)* CUB_SIZE) - 0.000001;
 		rx = (py - ry)*aTan + px;
 		yo = -CUB_SIZE;
 		xo = -yo*aTan;
 	}
-	else if (sin(ra) < -0.001)
+	else if (sin(ra) < -0.0001)
 	{
 		ry = ((py / CUB_SIZE)* CUB_SIZE) + CUB_SIZE;
 		rx = (py - ry)*aTan + px;
@@ -59,16 +59,16 @@ t_ray	distance(int px, int py, double angle, t_data *data)
 /////////////////////VERTICAL//////////////////
 	dof = 0;
 	aTan= tan(ra);
-	if (cos(ra) > 0.001)
+	if (cos(ra) > 0.0001)
 	{
 		rx = ((px / CUB_SIZE)* CUB_SIZE)  + CUB_SIZE;
 		ry = (px - rx)*aTan + py;
 		xo = CUB_SIZE;
 		yo = -xo*aTan;
 	}
-	else if (cos(ra) < -0.001)
+	else if (cos(ra) < -0.0001)
 	{
-		rx = ((px / CUB_SIZE)* CUB_SIZE) - 0.0001;
+		rx = ((px / CUB_SIZE)* CUB_SIZE) - 0.000001;
 		ry = (px - rx)*aTan + py;
 		xo = -CUB_SIZE;
 		yo = -xo*aTan;
@@ -93,24 +93,20 @@ t_ray	distance(int px, int py, double angle, t_data *data)
 ////////////////////////////////////////////////
 	distH = sqrt(((hx-px)*(hx-px)) + ((hy-py)*(hy-py)));
 	distV = sqrt(((rx-px)*(rx-px)) + ((ry-py)*(ry-py)));
-	if (distV > distH)
+	if (distV >= distH)
 	{
 		ret.dist = distH;
 		if (distH != 0)
 			ret.wall_h= data->win.h  * CUB_SIZE / (distH * fabs(cos(ra - data->angl)));
-		else if (ret.wall_h > data->win.h)
-			ret.wall_h = data->win.h;
-		ret.view = ('N' * (sin(angle) >= 0.001)) + ('S' * (sin(angle) <= -0.001));
-		ret.offset_x = (int)hx % CUB_SIZE;
+		ret.view = ('N' * (sin(angle) > 0)) + ('S' * (sin(angle) < 0));
+		ret.offset_x = (int)round(hx) % CUB_SIZE;
 		return (ret);
 	}
 	ret.dist = distV;
 	if (distV != 0)
 		ret.wall_h = data->win.h  * CUB_SIZE / (distV * fabs(cos(ra - data->angl)));
-	else if (ret.wall_h > data->win.h)
-		ret.wall_h = data->win.h;
-	ret.view = ('W' * (cos(angle) >= 0.001)) + ('E' * (cos(angle) <= -0.001));
-	ret.offset_x = (int)ry % CUB_SIZE;
+	ret.view = ('W' * (cos(angle) > 0)) + ('E' * (cos(angle) < 0));
+	ret.offset_x = (int)round(ry) % CUB_SIZE;
 	return (ret);
 }
 

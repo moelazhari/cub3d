@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:22:34 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/11 18:28:37 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:29:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	fill_map(char *line, t_data *data)
 	}
 	new[i] = line;
 	new[i + 1] = NULL;
-    free(data->map.map);
+    // free(data->map.map);
 	data->map.map = new;
 }
 
