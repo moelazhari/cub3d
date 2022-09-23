@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/21 19:20:08 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/23 18:48:37 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,15 @@ int	check_file(char *file, char *type, t_data *data)
 	return (fd);
 }
 
-static	int	check_texture_color(t_data *data)
+static int	check_texture_color(t_data *data)
 {
 	if (data->texture.no.img == NULL || data->texture.so.img == NULL || data->texture.we.img == NULL \
 || data->texture.ea.img == NULL || data->f == 0 || data->c == 0)
 		return (0);
-
 	return(1);
 }
 
-static void get_texture_color(int fd, t_data *data)
+static char *get_texture_color(int fd, t_data *data)
 {
 	char	*line;
 	
@@ -65,10 +64,12 @@ static void get_texture_color(int fd, t_data *data)
 			if (!check_texture_color(data))
 				ft_exit("Error invalid identifier", data);
 		}
+		free(line);
 		line = get_next_line(fd);
 	}
 	if (!check_texture_color(data))
 		ft_exit("Error texture not found", data);
+	return (line);
 }
 
 static void get_texture_pixsls(t_data *data)
@@ -90,9 +91,10 @@ static void get_texture_pixsls(t_data *data)
 void	pars_file(char *file, t_data *data)
 {
 	int		fd;
+	char	*line;
 
     fd = check_file(file, ".cub", data);
-	get_texture_color(fd, data);
+	line = get_texture_color(fd, data);
 	get_texture_pixsls(data);
-	get_map(fd, data);
+	get_map(fd, line, data);
 }

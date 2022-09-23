@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:31:57 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/23 17:10:51 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:52:49 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int render_frame(t_data *data)
+int	render_frame(t_data *data)
 {
 	data->angl += (2 * DEGRE) * data->rotation;
 	if (data->angl > 2 * PI)
 		data->angl -= 2 * PI;
 	else if (data->angl < 0)
 		data->angl += 2 * PI;
-    if (distance(data->px, data->py, data->angl - (PI * (data->move == -1)), data).dist > 32)
+	if (distance(data->px, data->py, data->angl - (PI * (data->move == -1)), data).dist > 32)
     {
         data->px += cos(data->angl) * 10 * data->move;
         data->py -= sin(data->angl) * 10 * data->move;
@@ -48,6 +48,8 @@ int	key_handler(int key, t_data *data)
 		data->strafe = 1;
 	if (key == KEY_D)
 		data->strafe = -1;
+	if (key == KEY_ESC)
+		destroy_notify(data);
 	render_frame(data);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-khad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 12:02:26 by yel-khad          #+#    #+#             */
-/*   Updated: 2021/11/18 18:49:51 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:48:35 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (j < strlen_set(s1, set))
 		str[j++] = s1[i++];
 	str[j] = '\0';
+	free((void *)s1);
 	return (str);
 }

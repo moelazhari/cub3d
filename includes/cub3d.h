@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/22 14:55:53 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/23 18:50:36 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #define KEY_S 1
 #define KEY_A 0
 #define KEY_D 2
+#define KEY_ESC 53
  
 
 typedef struct s_map 
@@ -59,8 +60,6 @@ typedef struct	s_img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		img_w;
-	int		img_h;
 }				t_img;
 
 typedef struct s_texture{
@@ -98,7 +97,7 @@ typedef struct s_data
 void    pars_file(char *file, t_data *data);
 int		check_file(char *file, char *type, t_data *data);
 void    get_color(char *line, t_data *data);
-void    get_map(int fd, t_data  *data);
+void    get_map(int fd, char *line, t_data  *data);
 void	check_map(t_data *data);
 void    get_texture(char *line, t_data *data);
 void	generate_game(t_data *data);
@@ -108,6 +107,7 @@ t_ray	distance(int px, int py, double angle, t_data *data);
 int		key_handler(int key, t_data *data);
 int		key_release(int key, t_data *data);
 int		render_frame(t_data *data);
-void	ft_exit(char *error_msg, t_data *data);
 void	ft_freearr(char **arr);
+int		destroy_notify(t_data *data);
+void	ft_exit(char *error_msg, t_data *data);
 #endif

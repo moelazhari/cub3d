@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 16:14:32 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/22 14:29:30 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:55:03 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ static int	*pars_rgb(char **split, t_data *data)
 static int get_hexa(int *rgb)
 {
 	int	hexa;
+	int	i;
+
+	i = 0;
 	hexa = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	free((void *)rgb);
 	return (hexa);
 }
 
