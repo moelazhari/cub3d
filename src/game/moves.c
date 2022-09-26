@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:31:57 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/23 18:52:49 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/26 19:45:06 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	render_frame(t_data *data)
     }
    	if (distance(data->px, data->py, data->angl + (PI /2) * (data->strafe), data).dist > 32)
     {
-		// printf("%f\ncos==%f\ndata->strafe====%d\n",data->angl, cos((PI/2) +data->angl), data->strafe);
         data->px += cos((PI / 2) + data->angl) * 10 * data->strafe;
 	    data->py -= sin((PI / 2) + data->angl) * 10 * data->strafe;
     }

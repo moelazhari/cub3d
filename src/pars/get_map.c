@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:22:34 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/23 18:50:53 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/25 15:15:47 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	fill_map(char *line, t_data *data)
 {
 	char	**new;
-	int	i;
+	int		i;
 
 	i = 0;
 	data->map.row = data->map.row + 1;
@@ -33,7 +33,7 @@ static void	fill_map(char *line, t_data *data)
 	data->map.map = new;
 }
 
-static void get_colmn(t_data *data)
+static void	get_colmn(t_data *data)
 {
 	int		max;
 	int		i;
@@ -49,22 +49,22 @@ static void get_colmn(t_data *data)
 	data->map.col = max;
 }
 
-void    get_map(int fd, char *line, t_data  *data)
+void	get_map(int fd, char *line, t_data *data)
 {
-    while (line && line[0] == '\n')
+	while (line && line[0] == '\n')
 	{
 		free(line);
-        line = get_next_line(fd);
+		line = get_next_line(fd);
 	}
 	if (!line)
 		ft_exit("Error map", data);
-    while (line && line[0] != '\n')
-    {
+	while (line && line[0] != '\n')
+	{
 		line = ft_strtrim(line, "\n");
-        fill_map(line, data);
-        line = get_next_line(fd);
-    }
-    check_map(data);
+		fill_map(line, data);
+		line = get_next_line(fd);
+	}
+	check_map(data);
 	while (line && line[0] == '\n')
 	{
 		free(line);

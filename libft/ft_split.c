@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:41:02 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/09 19:15:05 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/25 14:47:22 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ char	**ft_split(char const *s, char c)
 
 	j = 0;
 	i = 0;
-	if (s == 0)
-		return (0);
-	if (s[i] == c || s[ft_strlen(s) - 1] == c || nbr_words(s, c) != 3)
+	if (s == 0 || s[i] == c || s[ft_strlen(s) - 1] == c || nbr_words(s, c) != 3)
 		return (0);
 	stock = malloc(sizeof(char *) * (nbr_words(s, c) + 1));
 	if (!stock)
