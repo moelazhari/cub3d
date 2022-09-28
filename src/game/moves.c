@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:31:57 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/26 19:45:06 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/27 15:05:01 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ int	render_frame(t_data *data)
 		data->angl -= 2 * PI;
 	else if (data->angl < 0)
 		data->angl += 2 * PI;
-	if (distance(data->px, data->py, data->angl - (PI * (data->move == -1)), data).dist > 32)
-    {
-        data->px += cos(data->angl) * 10 * data->move;
-        data->py -= sin(data->angl) * 10 * data->move;
-    }
-   	if (distance(data->px, data->py, data->angl + (PI /2) * (data->strafe), data).dist > 32)
-    {
-        data->px += cos((PI / 2) + data->angl) * 10 * data->strafe;
-	    data->py -= sin((PI / 2) + data->angl) * 10 * data->strafe;
-    }
+	if (distance(data->px, data->py, data->angl \
+	- (PI * (data->move == -1)), data).dist > 32)
+	{
+		data->px += cos(data->angl) * 10 * data->move;
+		data->py -= sin(data->angl) * 10 * data->move;
+	}
+	if (distance(data->px, data->py, data->angl \
+	+ (PI / 2) * (data->strafe), data).dist > 32)
+	{
+		data->px += cos((PI / 2) + data->angl) * 10 * data->strafe;
+		data->py -= sin((PI / 2) + data->angl) * 10 * data->strafe;
+	}
 	render_game(data);
-    return(0);
+	return (0);
 }
 
 int	key_handler(int key, t_data *data)

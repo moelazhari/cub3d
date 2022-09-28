@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/26 19:39:25 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/28 18:23:18 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,17 @@ void	render_game(t_data *data)
 	&data->img.bits_per_pixel, &data->img.line_length, \
 	&data->img.endian);
 	data->ray = ray_casting(data);
-	x = -1;
+	x = 0;
 	draw_walls(data);
-	while (x++ < data->win.w)
+	while (x < data->win.w)
 	{
 		y = 0;
 		while (y < (data->win.h - data->ray[x].wall_h) / 2)
 			my_mlx_pixel_put(&(data->img), x, y++, data->c);
 		y = (data->win.h + data->ray[x].wall_h) / 2;
-		if (y > 0 && y < data->win.h)
-		{
-			while (y < data->win.h)
-				my_mlx_pixel_put(&(data->img), x, y++, data->f);
-		}
+		while (y < data->win.h)
+			my_mlx_pixel_put(&(data->img), x, y++, data->f);
+		x++;
 	}
 	free(data->ray);
 	mlx_put_image_to_window(data->mlx, data->win.win, data->img.img, 0, 0);
