@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:59:05 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/25 14:53:37 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/09/30 12:42:03 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	destroy_notify(t_data *data)
 
 void	ft_exit(char *error_msg, t_data *data)
 {
-	if (error_msg)
-		ft_putendl_fd(error_msg, 2);
+	ft_putendl_fd(error_msg, 2);
 	if (data->map.map)
 		ft_freearr(data->map.map);
 	if (data->texture.no.img)
