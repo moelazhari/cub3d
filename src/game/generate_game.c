@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/28 18:23:18 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/02 00:43:03 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char	*dst;
+	int	*dst;
 
-	dst = (char *)img->addr + (y * img->line_length + x * \
-	(img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	dst = &img->addr[y * (img->line_length / 4) + x];
+	*dst = color;
 }
 
 void	put_texture(int x, int y, int offset_y, t_data *data)
@@ -90,8 +89,9 @@ void	render_game(t_data *data)
 		while (y < (data->win.h - data->ray[x].wall_h) / 2)
 			my_mlx_pixel_put(&(data->img), x, y++, data->c);
 		y = (data->win.h + data->ray[x].wall_h) / 2;
-		while (y < data->win.h)
-			my_mlx_pixel_put(&(data->img), x, y++, data->f);
+		if (y > 0 && y < data->win.h)
+			while (y < data->win.h)
+				my_mlx_pixel_put(&(data->img), x, y++, data->f);
 		x++;
 	}
 	free(data->ray);

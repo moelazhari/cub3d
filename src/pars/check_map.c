@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/25 15:08:28 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/02 00:37:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	check_surrounded(char *line, t_data *data)
 	int	i;
 
 	i = 0;
+	if (!line)
+		ft_exit("Error map", data);
 	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != ' ')
@@ -42,7 +44,6 @@ static void	check_inside(char c, int row, int col, t_data *data)
 	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E'\
 		&& c != 'W' && c != ' ')
 	{
-		printf("dsgsfg\n");
 		ft_exit("Error map", data);
 	}
 	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
@@ -50,8 +51,8 @@ static void	check_inside(char c, int row, int col, t_data *data)
 		check_flor_player(row, col, data);
 		if (c != '0')
 		{
-			data->px = (col * CUB_SIZE) + 16;
-			data->py = (row * CUB_SIZE) + 16;
+			data->px = (col * CUB_SIZE) + 32;
+			data->py = (row * CUB_SIZE) - 32;
 			if (data->angl != -1)
 				ft_exit("Error map", data);
 			else if (c == 'N')
@@ -71,11 +72,9 @@ void	check_map(t_data *data)
 	int	i;
 	int	j;
 
-	i = -1;
-	if (data->map.row < 3)
-		ft_exit("Error map", data);
-	check_surrounded(data->map.map[++i], data);
-	while (++i < data->map.row - 1)
+	i = 0;
+	check_surrounded(data->map.map[i++], data);
+	while (i < data->map.row - 1)
 	{
 		j = 0;
 		if (data->map.map[i][j] != ' ' && data->map.map[i][j] != '1')
@@ -90,7 +89,7 @@ void	check_map(t_data *data)
 			ft_exit("Error map", data);
 		i++;
 	}
-	if (data->angl == -1)
-		ft_exit("Error map", data);
 	check_surrounded(data->map.map[i], data);
+	if (data->angl == -1)
+		ft_exit("Error player not found", data);
 }

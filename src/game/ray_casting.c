@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:23:05 by yel-khad          #+#    #+#             */
-/*   Updated: 2022/09/23 16:47:54 by yel-khad         ###   ########.fr       */
+/*   Updated: 2022/10/02 01:22:54 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ t_ray	distance(int px, int py, double angle, t_data *data)
 	{
 		ret.dist = distH;
 		if (distH != 0)
-			ret.wall_h= data->win.h / ((distH * fabs(cos(ra - data->angl))) / CUB_SIZE);
+			ret.wall_h = data->win.h / (2 * (distH * fabs(cos(ra - data->angl))) / CUB_SIZE);
 		ret.view = ('N' * (sin(angle) > 0)) + ('S' * (sin(angle) < 0));
 		ret.offset_x = (int)hx % CUB_SIZE;
 		return (ret);
 	}
 	ret.dist = distV;
 	if (distV != 0)
-		ret.wall_h = data->win.h / ((distV * fabs(cos(ra - data->angl))) / CUB_SIZE);
+		ret.wall_h = data->win.h / (2 * (distV * fabs(cos(ra - data->angl))) / CUB_SIZE);
 	ret.view = ('W' * (cos(angle) > 0)) + ('E' * (cos(angle) < 0));
 	ret.offset_x = (int)ry % CUB_SIZE;
 	return (ret);

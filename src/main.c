@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/25 14:52:32 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/02 01:01:30 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	init_game(t_data *data)
 	data->map.map[0] = NULL;
 	data->map.row = 0;
 	data->map.col = 0;
-	data->win.w = 2048;
-	data->win.h = 1024;
+	data->win.w = 1024;
+	data->win.h = 980;
 	data->px = 0;
 	data->py = 0;
 	data->angl = -1;
