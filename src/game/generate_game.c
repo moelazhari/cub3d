@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 16:29:21 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/02 17:42:44 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	render_game(t_data *data)
 	data->img.addr = (int *)mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_length, \
 	&data->img.endian);
-	data->ray = ray_casting(data);
+	ray_casting(data);
 	x = 0;
 	draw_walls(data);
 	while (x < data->win.w)

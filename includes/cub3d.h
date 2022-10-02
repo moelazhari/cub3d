@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 17:39:10 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/02 17:42:51 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	check_map(t_data *data);
 void	get_texture(char *line, t_data *data);
 void	generate_game(t_data *data);
 void	render_game(t_data *data);
-t_ray	*ray_casting(t_data *data);
+void	ray_casting(t_data *data);
 t_ray	distance(int px, int py, double angle, t_data *data);
 int		key_handler(int key, t_data *data);
 int		key_release(int key, t_data *data);
