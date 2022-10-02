@@ -6,55 +6,53 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 00:33:31 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/02 17:39:10 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <../libft/libft.h>
-#include <get_next_line.h>
-#include <mlx.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <math.h>
+# include <../libft/libft.h>
+# include <get_next_line.h>
+# include <mlx.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <math.h>
 
-#define	WSPACE	" \t\v\f\r"
-#define CUB_SIZE 64
-#define DEGRE 0.0174533
-#define PI 3.14159265359
+# define WSPACE	" \t\v\f\r"
+# define CUB_SIZE 64
+# define DEGRE 0.0174533
+# define PI 3.14159265359
 
-#define KEY_UP 126
-#define KEY_DOWN 125
-#define KEY_RIGHT 124
-#define KEY_LEFT 123
-#define KEY_W 13
-#define KEY_S 1
-#define KEY_A 0
-#define KEY_D 2
-#define KEY_ESC 53
- 
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_RIGHT 124
+# define KEY_LEFT 123
+# define KEY_W 13
+# define KEY_S 1
+# define KEY_A 0
+# define KEY_D 2
+# define KEY_ESC 53
 
-typedef struct s_map 
+typedef struct s_map
 {
-	int	row;
-	int	col;
-	char **map;
-}
-				t_map;
+	int		row;
+	int		col;
+	char	**map;
+}				t_map;
 
 typedef struct s_win
 {
 	void	*win;
 	int		w;
 	int		h;
-}
-				t_win;
+}				t_win;
 
-typedef struct	s_img {
+typedef struct s_img
+{
 	void	*img;
 	int		*addr;
 	int		bits_per_pixel;
@@ -67,13 +65,17 @@ typedef struct s_texture{
 	t_img		so;
 	t_img		we;
 	t_img		ea;
-}               t_texture;
+}				t_texture;
 
 typedef struct s_ray {
 	char	view;
 	double	wall_h;
 	double	dist;
 	int		offset_x;
+	double	vx;
+	double	vy;
+	double	hx;
+	double	hy;
 }				t_ray;
 
 typedef struct s_data
@@ -94,12 +96,12 @@ typedef struct s_data
 	int			rotation;
 }				t_data;
 
-void    pars_file(char *file, t_data *data);
+void	pars_file(char *file, t_data *data);
 int		check_file(char *file, char *type, t_data *data);
-void    get_color(char *line, t_data *data);
-void    get_map(int fd, char *line, t_data  *data);
+void	get_color(char *line, t_data *data);
+void	get_map(int fd, char *line, t_data *data);
 void	check_map(t_data *data);
-void    get_texture(char *line, t_data *data);
+void	get_texture(char *line, t_data *data);
 void	generate_game(t_data *data);
 void	render_game(t_data *data);
 t_ray	*ray_casting(t_data *data);

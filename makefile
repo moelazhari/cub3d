@@ -6,7 +6,7 @@
 #    By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 16:18:39 by mazhari           #+#    #+#              #
-#    Updated: 2022/10/01 22:39:00 by mazhari          ###   ########.fr        #
+#    Updated: 2022/10/02 17:09:49 by mazhari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ B_DIR = ./build
 
 GNL= $(addprefix gnl/, get_next_line get_next_line_utils)
 PARS= $(addprefix pars/, pars_file get_texture get_color get_map check_map)
-GAME= $(addprefix game/, generate_game moves ray_casting) 
+GAME= $(addprefix game/, generate_game moves ray_casting ray_casting1) 
 SRC= $(addprefix src/, main ft_exit $(PARS) $(GAME))
 FILES= $(SRC) $(GNL)
 OBJS= $(addprefix $(B_DIR)/, $(FILES:=.o))
