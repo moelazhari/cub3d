@@ -6,24 +6,26 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/26 14:32:12 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/03 14:34:26 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	check_file(char *file, char *type, t_data *data)
+static int	check_file(char *file, t_data *data)
 {
-	int		fd;
 	int		i;
-	int		len;	
+	int		fd;
+	int		len;
+	char	*cub;
 
-	i = ft_strlen(type) - 1;
+	cub = ".cub";
+	i = 3;
 	len = ft_strlen(file) - 1;
 	while (i >= 0)
 	{
-		if (file[len] != type[i])
-			ft_exit("Error wrong file type", data);
+		if (file[len] != cub[i])
+			ft_exit("Error file wrong type", data);
 		i--;
 		len--;
 	}
@@ -92,7 +94,7 @@ void	pars_file(char *file, t_data *data)
 	int		fd;
 	char	*line;
 
-	fd = check_file(file, ".cub", data);
+	fd = check_file(file, data);
 	line = get_texture_color(fd, data);
 	get_texture_pixsls(data);
 	get_map(fd, line, data);

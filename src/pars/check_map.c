@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 15:45:25 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 00:37:10 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/04 15:42:45 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	check_surrounded(char *line, t_data *data)
 	}
 }
 
-static void	check_flor_player(int row, int col, t_data *data)
+static void	check_floor_player(int row, int col, t_data *data)
 {
 	if (col > (int)ft_strlen(data->map.map[row - 1]) - 1 || \
 col > (int)ft_strlen(data->map.map[row + 1]) - 1)
@@ -43,16 +43,14 @@ static void	check_inside(char c, int row, int col, t_data *data)
 {
 	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E'\
 		&& c != 'W' && c != ' ')
-	{
 		ft_exit("Error map", data);
-	}
 	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		check_flor_player(row, col, data);
+		check_floor_player(row, col, data);
 		if (c != '0')
 		{
-			data->px = (col * CUB_SIZE) + 32;
-			data->py = (row * CUB_SIZE) - 32;
+			data->px = (col * CUB_SIZE) + CUB_SIZE / 2;
+			data->py = (row * CUB_SIZE) + CUB_SIZE / 2;
 			if (data->angl != -1)
 				ft_exit("Error map", data);
 			else if (c == 'N')

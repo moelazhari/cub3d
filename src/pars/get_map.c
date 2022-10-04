@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:22:34 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/01 22:34:04 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/03 14:47:46 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static void	fill_map(char *line, t_data *data)
 
 static void	get_colmn(t_data *data)
 {
-	int		max;
+	size_t	max;
 	int		i;
 
 	max = 0;
 	i = 0;
 	while (data->map.map[i])
 	{
-		if ((int)ft_strlen(data->map.map[i]) > max)
+		if (ft_strlen(data->map.map[i]) > max)
 			max = ft_strlen(data->map.map[i]);
 		i++;
 	}
@@ -56,7 +56,9 @@ void	get_map(int fd, char *line, t_data *data)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (!line || (line[0] != ' ' && line[0] != '1'))
+	if (!line)
+		ft_exit("Error map not found", data);
+	if (line[0] != ' ' && line[0] != '1')
 		ft_exit("Error invalid identifier", data);
 	while (line && line[0] != '\n')
 	{

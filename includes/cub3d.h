@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 17:42:51 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/04 15:53:31 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ typedef struct s_data
 }				t_data;
 
 void	pars_file(char *file, t_data *data);
-int		check_file(char *file, char *type, t_data *data);
 void	get_color(char *line, t_data *data);
 void	get_map(int fd, char *line, t_data *data);
 void	check_map(t_data *data);

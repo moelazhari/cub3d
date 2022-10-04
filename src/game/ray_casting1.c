@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:02:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 17:28:49 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/04 16:36:04 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ static double	horizontal(int px, int py, double ra, t_data *data)
 	double	yo;
 
 	dof = 0;
-	if (sin(ra) > 0.0001)
+	if (sin(ra) > 0)
 	{
 		data->ray->hy = ((py / CUB_SIZE) * CUB_SIZE) - 0.000001;
 		data->ray->hx = (py - data->ray->hy) / tan(ra) + px;
 	}
-	else if (sin(ra) < -0.0001)
+	else if (sin(ra) < 0)
 	{
 		data->ray->hy = ((py / CUB_SIZE) * CUB_SIZE) + CUB_SIZE;
 		data->ray->hx = (py - data->ray->hy) / tan(ra) + px;
 	}
 	else
 		dof = data->map.row;
-	yo = CUB_SIZE * (1 - (2 * (sin(ra) > 0.0001)));
-	xo = -yo / tan(ra);
+	yo = CUB_SIZE * (1 - (2 * (sin(ra) > 0)));
+	xo = -yo/ tan(ra);
 	find_wall_horizontal(dof, xo, yo, data);
 	disth = sqrt(((data->ray->hx - px) * (data->ray->hx - px)) \
 	+ ((data->ray->hy - py) * (data->ray->hy - py)));

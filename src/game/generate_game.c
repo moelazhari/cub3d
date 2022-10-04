@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/02 17:42:44 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/03 15:02:46 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	draw_walls(t_data *data)
 		}
 		x++;
 	}
+	free(data->ray);
 }
 
 void	render_game(t_data *data)
@@ -94,7 +95,6 @@ void	render_game(t_data *data)
 				my_mlx_pixel_put(&(data->img), x, y++, data->f);
 		x++;
 	}
-	free(data->ray);
 	mlx_put_image_to_window(data->mlx, data->win.win, data->img.img, 0, 0);
 }
 

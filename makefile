@@ -6,14 +6,14 @@
 #    By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 16:18:39 by mazhari           #+#    #+#              #
-#    Updated: 2022/10/02 17:09:49 by mazhari          ###   ########.fr        #
+#    Updated: 2022/10/04 16:29:39 by mazhari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC= gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
-NAME= cub3d
+NAME= cub3D
 
 INCLUDES= ./includes
 HEDEAR= $(INCLUDES)/cub3d.h\
