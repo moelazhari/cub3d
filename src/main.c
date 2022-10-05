@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:21 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/03 15:45:59 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:10:56 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_game(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		ft_exit("Error mlx", data);
+		ft_exit("Error mlx", data, 0);
 	data->map.map = malloc(sizeof(char *));
 	data->map.map[0] = NULL;
 	data->map.row = 0;
@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	if (ac != 2)
-		ft_exit("Error arg", &data);
+		ft_exit("Error arg", &data, 0);
 	init_game(&data);
 	pars_file(av[1], &data);
 	generate_game(&data);

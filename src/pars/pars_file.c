@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:07:13 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/03 14:34:26 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:27:26 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static int	check_file(char *file, t_data *data)
 	while (i >= 0)
 	{
 		if (file[len] != cub[i])
-			ft_exit("Error file wrong type", data);
+			ft_exit("Error file: wrong type", data, 1);
 		i--;
 		len--;
 	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		ft_exit("Error file not found", data);
+		ft_exit("Error file: not found", data, 1);
 	return (fd);
 }
 
@@ -50,7 +50,7 @@ static char	*get_texture_color(int fd, t_data *data)
 
 	line = get_next_line(fd);
 	if (!line)
-		ft_exit("Error file empty", data);
+		ft_exit("Error file empty", data, 1);
 	while (line && !check_texture_color(data))
 	{
 		line = ft_strtrim(line, " \t\v\f\r\n");
@@ -64,12 +64,12 @@ static char	*get_texture_color(int fd, t_data *data)
 				get_color(line, data);
 		}
 		else
-			ft_exit("Error invalid identifier", data);
+			ft_exit("Error invalid identifier", data, 1);
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (!check_texture_color(data))
-		ft_exit("Error texture not found", data);
+		ft_exit("Error texture not found", data, 1);
 	return (line);
 }
 

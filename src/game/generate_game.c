@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_game.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:48:29 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/03 15:02:46 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/05 15:17:54 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,28 @@ static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	put_texture(int x, int y, int offset_y, t_data *data)
 {
-	int	coller;
+	int	color;
 
 	offset_y *= (data->texture.no.line_length / 4);
 	if (data->ray[x].view == 'N')
 	{
-		coller = data->texture.no.addr[offset_y + data->ray[x].offset_x];
-		my_mlx_pixel_put(&(data->img), x, y, coller);
+		color = data->texture.no.addr[offset_y + data->ray[x].offset_x];
+		my_mlx_pixel_put(&(data->img), x, y, color);
 	}
 	else if (data->ray[x].view == 'S')
 	{
-		coller = data->texture.so.addr[offset_y + data->ray[x].offset_x];
-		my_mlx_pixel_put(&(data->img), x, y, coller);
+		color = data->texture.so.addr[offset_y + data->ray[x].offset_x];
+		my_mlx_pixel_put(&(data->img), x, y, color);
 	}
 	else if (data->ray[x].view == 'W')
 	{
-		coller = data->texture.we.addr[offset_y + data->ray[x].offset_x];
-		my_mlx_pixel_put(&(data->img), x, y, coller);
+		color = data->texture.we.addr[offset_y + data->ray[x].offset_x];
+		my_mlx_pixel_put(&(data->img), x, y, color);
 	}
 	else
 	{
-		coller = data->texture.ea.addr[offset_y + data->ray[x].offset_x];
-		my_mlx_pixel_put(&(data->img), x, y, coller);
+		color = data->texture.ea.addr[offset_y + data->ray[x].offset_x];
+		my_mlx_pixel_put(&(data->img), x, y, color);
 	}
 }
 
@@ -102,6 +102,8 @@ void	generate_game(t_data *data)
 {
 	data->win.win = mlx_new_window(data->mlx, data->win.w, \
 	data->win.h, "cub3d");
+	if (!data->win.win)
+		ft_exit("Error window", data, 1);
 	data->img.img = mlx_new_image(data->mlx, data->win.w, data->win.h);
 	data->img.addr = (int *)mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_length, \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 16:14:32 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/05 13:35:21 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:12:26 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static int	*pars_rgb(char **split, t_data *data)
 		while (split[i][j])
 		{
 			if (!ft_isdigit(split[i][j]))
-				ft_exit("Error invalid rgb", data);
+				ft_exit("Error invalid rgb", data, 1);
 			j++;
 		}
 		rgb[i] = ft_atoi(split[i]);
 		if (rgb[i] < 0 || rgb[i] > 255)
-			ft_exit("Error invalid rgb", data);
+			ft_exit("Error invalid rgb", data, 1);
 		i++;
 	}
 	ft_freearr(split);
@@ -62,12 +62,12 @@ void	get_color(char *line, t_data *data)
 	{
 		tmp++;
 		if (!ft_strchr(WSPACE, *tmp))
-			ft_exit("Error invalid identifier", data);
+			ft_exit("Error invalid identifier", data, 1);
 		while (ft_strchr(WSPACE, *tmp))
 			tmp++;
 		split = ft_split(tmp, ',');
 		if (!split)
-			ft_exit("Error invalid rgb", data);
+			ft_exit("Error invalid rgb", data, 1);
 		rgb = pars_rgb(split, data);
 		if (!ft_strncmp("F", line, 1))
 			data->f = get_hexa(rgb);
@@ -75,5 +75,5 @@ void	get_color(char *line, t_data *data)
 			data->c = get_hexa(rgb);
 	}
 	else
-		ft_exit("Error invalid identifier", data);
+		ft_exit("Error invalid identifier", data, 1);
 }

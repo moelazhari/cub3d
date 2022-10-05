@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yel-khad <yel-khad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:16:03 by mazhari           #+#    #+#             */
-/*   Updated: 2022/10/04 15:53:31 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:10:27 by yel-khad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,5 @@ int		key_release(int key, t_data *data);
 int		render_frame(t_data *data);
 void	ft_freearr(char **arr);
 int		destroy_notify(t_data *data);
-void	ft_exit(char *error_msg, t_data *data);
+void	ft_exit(char *error_msg, t_data *data, int x);
 #endif
