@@ -6,7 +6,7 @@
 /*   By: mazhari <mazhari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 16:14:32 by mazhari           #+#    #+#             */
-/*   Updated: 2022/09/25 15:11:50 by mazhari          ###   ########.fr       */
+/*   Updated: 2022/10/05 13:35:21 by mazhari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	*pars_rgb(char **split, t_data *data)
 	while (split[i])
 	{
 		j = 0;
+		split[i] = ft_strtrim(split[i], " \t\v\f\r\n");
 		while (split[i][j])
 		{
 			if (!ft_isdigit(split[i][j]))
